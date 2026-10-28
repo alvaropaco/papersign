@@ -7,31 +7,34 @@ command -v docker >/dev/null 2>&1 || {
 
 SCRIPT_DIR="$(readlink -f "$(dirname "$0")")"
 MONOREPO_ROOT="$(readlink -f "$SCRIPT_DIR/../")"
+DEFAULT_REPOSITORY="ghcr.io/alvaropaco/papersign"
+PLATFORM="${PLATFORM:-linux/amd64}"
 
-# Get the platform from environment variable or set to linux/amd64 if not set
-# quote the string to prevent word splitting
-if [ -z "$PLATFORM" ]; then
-    PLATFORM="linux/amd64"
-fi
-
-APP_VERSION="$(git name-rev --tags --name-only $(git rev-parse HEAD) | head -n 1 | sed 's/\^0//')"
+APP_VERSION="$(git name-rev --tags --name-only "$(git rev-parse HEAD)" | head -n 1 | sed 's/\^0//')"
 GIT_SHA="$(git rev-parse HEAD)"
+REPOSITORY="${DOCKER_REPOSITORY:-$DEFAULT_REPOSITORY}"
 
-echo "Building docker image for monorepo at $MONOREPO_ROOT"
+echo "Building and pushing Papersign image for $PLATFORM"
+echo "Image repository: $REPOSITORY"
 echo "App version: $APP_VERSION"
 echo "Git SHA: $GIT_SHA"
 
+TAG_ARGS=(
+    -t "$REPOSITORY:latest"
+    -t "$REPOSITORY:$GIT_SHA"
+    -t "$REPOSITORY:sha-${GIT_SHA:0:7}"
+)
+
+if [ -n "$APP_VERSION" ] && [ "$APP_VERSION" != "undefined" ]; then
+    TAG_ARGS+=(-t "$REPOSITORY:$APP_VERSION")
+fi
+
 docker buildx build \
     -f "$SCRIPT_DIR/Dockerfile" \
-    --platform=$PLATFORM \
+    --platform="$PLATFORM" \
     --progress=plain \
     --build-arg NEXT_PRIVATE_TELEMETRY_KEY="${NEXT_PRIVATE_TELEMETRY_KEY:-}" \
     --build-arg NEXT_PRIVATE_TELEMETRY_HOST="${NEXT_PRIVATE_TELEMETRY_HOST:-}" \
-    -t "documenso/documenso:latest" \
-    -t "documenso/documenso:$GIT_SHA" \
-    -t "documenso/documenso:$APP_VERSION" \
-    -t "ghcr.io/documenso/documenso:latest" \
-    -t "ghcr.io/documenso/documenso:$GIT_SHA" \
-    -t "ghcr.io/documenso/documenso:$APP_VERSION" \
+    "${TAG_ARGS[@]}" \
     --push \
     "$MONOREPO_ROOT"

@@ -1,4 +1,4 @@
-name: documenso-production
+name: papersign-production
 
 services:
   database:
@@ -15,8 +15,8 @@ services:
     volumes:
       - database:/var/lib/postgresql/data
 
-  documenso:
-    image: documenso/documenso:latest
+  papersign:
+    image: ghcr.io/alvaropaco/papersign:${PAPERSIGN_IMAGE_TAG:-latest}
     depends_on:
       database:
         condition: service_healthy
@@ -70,13 +70,13 @@ services:
       - NEXT_PUBLIC_DISABLE_MICROSOFT_SIGNIN=${NEXT_PUBLIC_DISABLE_MICROSOFT_SIGNIN}
       - NEXT_PUBLIC_DISABLE_OIDC_SIGNIN=${NEXT_PUBLIC_DISABLE_OIDC_SIGNIN}
       - NEXT_PUBLIC_DISABLE_OIDC_AUTO_REDIRECT=${NEXT_PUBLIC_DISABLE_OIDC_AUTO_REDIRECT}
-      - NEXT_PRIVATE_SIGNING_LOCAL_FILE_PATH=${NEXT_PRIVATE_SIGNING_LOCAL_FILE_PATH:-/opt/documenso/cert.p12}
+      - NEXT_PRIVATE_SIGNING_LOCAL_FILE_PATH=${NEXT_PRIVATE_SIGNING_LOCAL_FILE_PATH:-/opt/papersign/certs/cert.p12}
       - NEXT_PRIVATE_SIGNING_PASSPHRASE=${NEXT_PRIVATE_SIGNING_PASSPHRASE}
       - NEXT_PUBLIC_USE_INTERNAL_URL_BROWSERLESS=${NEXT_PUBLIC_USE_INTERNAL_URL_BROWSERLESS}
     ports:
       - ${PORT:-3000}:${PORT:-3000}
     volumes:
-      - /opt/documenso/cert.p12:/opt/documenso/cert.p12:ro
+      - /opt/papersign/cert.p12:/opt/papersign/certs/cert.p12:ro
 
 volumes:
   database:

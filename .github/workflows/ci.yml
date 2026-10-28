@@ -44,9 +44,9 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build Docker Image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: false
           context: .
           file: ./docker/Dockerfile
-          tags: documenso-${{ github.sha }}
+          tags: papersign-${{ github.sha }}

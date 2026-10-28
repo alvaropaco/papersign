@@ -1,25 +1,110 @@
-name: Deploy to Production
+name: Deploy Papersign
 
 on:
   push:
-    tags:
-      - '*'
+    branches: ['main']
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
 
 jobs:
-  deploy:
+  publish:
+    name: Build and publish image
     runs-on: ubuntu-latest
     timeout-minutes: 60
-
+    outputs:
+      image: ${{ steps.meta.outputs.image }}
+      tag: ${{ steps.meta.outputs.tag }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
-          token: ${{ secrets.GH_TOKEN }}
+      - uses: actions/checkout@v4
 
-      - name: Push to release branch
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ github.token }}
+
+      - name: Set image metadata
+        id: meta
+        env:
+          GIT_SHA: ${{ github.sha }}
         run: |
-          git checkout release || git checkout -b release
-          git merge --ff-only main
-          git push origin release
+          SHORT_SHA="${GIT_SHA::7}"
+          IMAGE="ghcr.io/${GITHUB_REPOSITORY_OWNER}/papersign"
+
+          {
+            echo "image=${IMAGE}"
+            echo "tag=${GIT_SHA}"
+            echo "tags<<EOF"
+            echo "${IMAGE}:${GIT_SHA}"
+            echo "${IMAGE}:sha-${SHORT_SHA}"
+            echo "${IMAGE}:latest"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Build and publish image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./docker/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            NEXT_PRIVATE_TELEMETRY_KEY=${{ secrets.NEXT_PRIVATE_TELEMETRY_KEY }}
+            NEXT_PRIVATE_TELEMETRY_HOST=${{ secrets.NEXT_PRIVATE_TELEMETRY_HOST }}
+
+  bump-gitops:
+    name: Update k8s-infra image tag
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: publish
+    env:
+      K8S_INFRA_PAT: ${{ secrets.K8S_INFRA_PAT }}
+      IMAGE_TAG: ${{ needs.publish.outputs.tag }}
+    steps:
+      - name: Check deployment prerequisites
+        run: |
+          if [ -z "$K8S_INFRA_PAT" ]; then
+            echo "WARN: K8S_INFRA_PAT is not configured; skipping the GitOps image bump."
+            exit 0
+          fi
+
+      - name: Update image tag
+        if: env.K8S_INFRA_PAT != ''
+        run: |
+          git clone --branch master --single-branch --depth 1 \
+            "https://x-access-token:${K8S_INFRA_PAT}@github.com/alvaropaco/k8s-infra.git" \
+            k8s-infra
+
+          cd k8s-infra
+
+          if [ ! -f apps/papersign/values.yaml ]; then
+            echo "WARN: apps/papersign/values.yaml does not exist yet; skipping first-run bump."
+            exit 0
+          fi
+
+          # The application image tag is the only two-space-indented tag in values.yaml.
+          sed -i "s|^\\(  tag:\\).*$|\\1 \"${IMAGE_TAG}\"|" apps/papersign/values.yaml
+
+          if git diff --quiet -- apps/papersign/values.yaml; then
+            echo "Image tag is already ${IMAGE_TAG}."
+            exit 0
+          fi
+
+          git config user.name 'civ-bot'
+          git config user.email 'ci@0xcloud.net'
+          git add apps/papersign/values.yaml
+          git commit -m "papersign: bump image tag to ${IMAGE_TAG} [skip ci]"
+          git push origin HEAD:master
