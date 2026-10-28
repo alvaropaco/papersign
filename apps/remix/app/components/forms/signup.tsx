@@ -1,4 +1,3 @@
-import communityCardsImage from '@documenso/assets/images/community-cards.png';
 import { authClient } from '@documenso/auth/client';
 import { useAnalytics } from '@documenso/lib/client-only/hooks/use-analytics';
 import {
@@ -25,6 +24,7 @@ import { useLingui } from '@lingui/react';
 import { Trans } from '@lingui/react/macro';
 import type { TurnstileInstance } from '@marsidev/react-turnstile';
 import { Turnstile } from '@marsidev/react-turnstile';
+import { FileCheck2Icon, HistoryIcon, SendIcon } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { Fragment, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
@@ -33,7 +33,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate, useSearchParams } from 'react-router';
 import { z } from 'zod';
 
-import { UserProfileTimur } from '~/components/general/user-profile-timur';
+import { BrandingLogo } from '~/components/general/branding-logo';
 
 export const ZSignUpFormSchema = z
   .object({
@@ -222,27 +222,39 @@ export const SignUpForm = ({
 
   return (
     <div className={cn('flex justify-center gap-x-12', className)}>
-      <div className="relative hidden flex-1 overflow-hidden rounded-xl border border-border xl:flex">
-        <div className="absolute -inset-8 -z-[2] backdrop-blur">
-          <img
-            src={communityCardsImage}
-            alt="community-cards"
-            className="h-full w-full object-cover dark:brightness-95 dark:contrast-[70%] dark:invert"
-          />
-        </div>
+      <div className="relative hidden flex-1 overflow-hidden rounded-xl border border-border bg-documenso-50 xl:flex dark:bg-documenso-950/20">
+        <div className="relative flex h-full w-full flex-col justify-between p-10 2xl:p-12">
+          <BrandingLogo className="h-8 w-auto self-start" />
 
-        <div className="absolute -inset-8 -z-[1] bg-background/50 backdrop-blur-[2px]" />
-
-        <div className="relative flex h-full w-full flex-col items-center justify-evenly">
-          <div className="rounded-2xl border bg-background px-4 py-1 font-medium text-sm">
-            <Trans>User profiles are here!</Trans>
+          <div className="my-12 max-w-md">
+            <h2 className="font-semibold text-3xl tracking-tight">
+              <Trans>A simpler way to get documents signed.</Trans>
+            </h2>
+            <p className="mt-4 text-muted-foreground leading-relaxed">
+              <Trans>Prepare, send, and track agreements from one workspace.</Trans>
+            </p>
           </div>
 
-          <div className="w-full max-w-md">
-            <UserProfileTimur rows={2} className="rounded-2xl border border-border bg-background shadow-md" />
+          <div className="space-y-5">
+            <div className="flex items-center gap-3">
+              <SendIcon className="h-5 w-5 flex-shrink-0 text-documenso-700 dark:text-documenso-300" />
+              <p className="text-sm">
+                <Trans>Send documents for signature in minutes</Trans>
+              </p>
+            </div>
+            <div className="flex items-center gap-3">
+              <FileCheck2Icon className="h-5 w-5 flex-shrink-0 text-documenso-700 dark:text-documenso-300" />
+              <p className="text-sm">
+                <Trans>Give recipients a clear signing experience</Trans>
+              </p>
+            </div>
+            <div className="flex items-center gap-3">
+              <HistoryIcon className="h-5 w-5 flex-shrink-0 text-documenso-700 dark:text-documenso-300" />
+              <p className="text-sm">
+                <Trans>Keep completed documents and audit trails together</Trans>
+              </p>
+            </div>
           </div>
-
-          <div />
         </div>
       </div>
 

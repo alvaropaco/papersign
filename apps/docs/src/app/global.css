@@ -3,32 +3,30 @@
 @import "fumadocs-ui/css/preset.css";
 
 @theme {
-  /* Brand utility colors */
-  --color-documenso: hsl(95.08, 71.08%, 67.45%);
-  --color-documenso-dark: hsl(95.08, 71.08%, 54%);
-  --color-documenso-darker: hsl(95.08, 71.08%, 41%);
+  --color-papersign: #0056fe;
+  --color-papersign-navy: #00102b;
 }
 
 :root {
   --background: hsl(0 0% 100%);
-  --foreground: hsl(222.2222 47.3684% 11.1765%);
+  --foreground: #00102b;
   --card: hsl(0 0% 100%);
-  --card-foreground: hsl(222.2222 47.3684% 11.1765%);
+  --card-foreground: #00102b;
   --popover: hsl(0 0% 100%);
-  --popover-foreground: hsl(222.2222 47.3684% 11.1765%);
-  --primary: hsl(95.0847 71.0843% 42.451%);
-  --primary-foreground: hsl(95.6757 72.549% 10%);
+  --popover-foreground: #00102b;
+  --primary: #0056fe;
+  --primary-foreground: #ffffff;
   --secondary: hsl(210 40% 96.0784%);
-  --secondary-foreground: hsl(222.2222 47.3684% 11.1765%);
+  --secondary-foreground: #00102b;
   --muted: hsl(210 40% 96.0784%);
   --muted-foreground: hsl(215.3846 16.318% 46.8627%);
   --accent: hsl(210 40% 96.0784%);
-  --accent-foreground: hsl(222.2222 47.3684% 11.1765%);
+  --accent-foreground: #00102b;
   --destructive: hsl(0 100% 50%);
   --destructive-foreground: hsl(210 40% 98.0392%);
   --border: hsl(214.2857 31.8182% 91.3725%);
   --input: hsl(214.2857 31.8182% 91.3725%);
-  --ring: hsl(95.0847 71.0843% 67.451%);
+  --ring: #0056fe;
   --chart-1: hsl(211.788 101.9718% 78.6759%);
   --chart-2: hsl(217.4076 91.3672% 59.5787%);
   --chart-3: hsl(221.4336 86.3731% 54.0624%);
@@ -74,19 +72,19 @@
   --card-foreground: hsl(0 0% 94.902%);
   --popover: hsl(0 0% 14.902%);
   --popover-foreground: hsl(0 0% 90.1961%);
-  --primary: hsl(95.0847 71.0843% 67.451%);
-  --primary-foreground: hsl(95.6757 72.549% 10%);
+  --primary: #0056fe;
+  --primary-foreground: #ffffff;
   --secondary: hsl(0 0% 23.5294%);
-  --secondary-foreground: hsl(95.0847 71.0843% 67.451%);
+  --secondary-foreground: #ffffff;
   --muted: hsl(0 0% 23.5294%);
   --muted-foreground: hsl(0 0% 85.098%);
   --accent: hsl(0 0% 27.8431%);
-  --accent-foreground: hsl(95.0847 71.0843% 67.451%);
+  --accent-foreground: #ffffff;
   --destructive: hsl(0 86.5979% 61.9608%);
   --destructive-foreground: hsl(0 0% 98.0392%);
   --border: hsl(0 0% 27.8431%);
   --input: hsl(0 0% 27.8431%);
-  --ring: hsl(95.0847 71.0843% 67.451%);
+  --ring: #0056fe;
   --chart-1: hsl(211.788 101.9718% 78.6759%);
   --chart-2: hsl(217.4076 91.3672% 59.5787%);
   --chart-3: hsl(221.4336 86.3731% 54.0624%);

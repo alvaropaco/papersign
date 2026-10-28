@@ -1,6 +1,6 @@
 ---
 title: Database Configuration
-description: Configure PostgreSQL connection strings, pooling, SSL, migrations, and performance tuning for your Documenso deployment.
+description: Configure PostgreSQL connection strings, pooling, SSL, migrations, and performance tuning for your Papersign deployment.
 ---
 
 import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
@@ -9,7 +9,7 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 ## Supported Databases
 
-Documenso requires **PostgreSQL 14 or later**. No other databases are supported.
+Papersign requires **PostgreSQL 14 or later**. No other databases are supported.
 
 PostgreSQL provides the reliability, performance, and feature set required for document signing workflows, including:
 
@@ -61,7 +61,7 @@ postgresql://documenso:p%40ss%23word@localhost:5432/documenso
 
 ## Environment Variables
 
-Documenso uses two database connection variables:
+Papersign uses two database connection variables:
 
 | Variable                           | Purpose                                             |
 | ---------------------------------- | --------------------------------------------------- |
@@ -79,7 +79,7 @@ NEXT_PRIVATE_DIRECT_DATABASE_URL=postgresql://user:password@host:5432/documenso
 
 ### Automatic Detection
 
-Documenso automatically detects common database environment variable formats used by hosting providers:
+Papersign automatically detects common database environment variable formats used by hosting providers:
 
 | Provider Variable          | Maps To                            |
 | -------------------------- | ---------------------------------- |
@@ -89,7 +89,7 @@ Documenso automatically detects common database environment variable formats use
 | `DATABASE_URL_UNPOOLED`    | `NEXT_PRIVATE_DIRECT_DATABASE_URL` |
 | `POSTGRES_URL_NON_POOLING` | `NEXT_PRIVATE_DIRECT_DATABASE_URL` |
 
-If your hosting provider sets these variables, Documenso will use them automatically.
+If your hosting provider sets these variables, Papersign will use them automatically.
 
 ## Connection Pooling
 
@@ -125,7 +125,7 @@ NEXT_PRIVATE_DIRECT_DATABASE_URL=postgresql://user:password@db-host:5432/documen
 
 ### Prisma Connection Pool
 
-Documenso uses Prisma, which maintains its own connection pool. Configure pool size with connection string parameters:
+Papersign uses Prisma, which maintains its own connection pool. Configure pool size with connection string parameters:
 
 ```
 postgresql://user:password@host:5432/documenso?connection_limit=10&pool_timeout=30
@@ -178,11 +178,11 @@ docker run -d \
 
 ## Running Migrations
 
-Database migrations update your schema when upgrading Documenso.
+Database migrations update your schema when upgrading Papersign.
 
 ### Automatic Migrations
 
-When running Documenso via Docker, migrations run automatically on container startup. No manual intervention is required.
+When running Papersign via Docker, migrations run automatically on container startup. No manual intervention is required.
 
 ### Manual Migrations
 
@@ -210,7 +210,7 @@ npm run prisma:migrate-deploy
 <Accordions type="multiple">
   <Accordion title="Migration failed midway">
     Check the `_prisma_migrations` table:
-    
+
     ```sql
     SELECT * FROM _prisma_migrations WHERE finished_at IS NULL;
     ```
@@ -226,7 +226,7 @@ npm run prisma:migrate-deploy
   </Accordion>
   <Accordion title="Connection timeout during migration">
     Use the direct database URL and increase timeout:
-    
+
     ```bash
     NEXT_PRIVATE_DIRECT_DATABASE_URL="postgresql://user:password@host:5432/documenso?connect_timeout=60"
     ```
@@ -366,7 +366,7 @@ Most managed database services provide automated backups:
 
 ### PostgreSQL Configuration
 
-Key parameters for Documenso workloads:
+Key parameters for Papersign workloads:
 
 | Parameter              | Recommended Value | Description                           |
 | ---------------------- | ----------------- | ------------------------------------- |
@@ -388,7 +388,7 @@ Example: 3 app instances with pool size 10 = `(3 × 10) + 10 = 40` connections m
 
 ### Indexing
 
-Documenso includes necessary indexes by default. Additional indexes may help for:
+Papersign includes necessary indexes by default. Additional indexes may help for:
 
 - Custom reporting queries
 - High-volume document searches
@@ -422,7 +422,7 @@ Monitor these metrics:
     - PostgreSQL not running
     - Incorrect host or port
     - Firewall blocking
-    
+
     Solutions:
     - Verify PostgreSQL is running with `pg_isready -h host -p 5432`
     - Check the connection string
@@ -430,11 +430,11 @@ Monitor these metrics:
     with `pg_isready -h host -p 5432`, check the connection string, verify firewall rules.
   </Accordion>
   <Accordion title="Authentication failed">
-    Causes: 
+    Causes:
     - Incorrect password
     - User doesn't exist
     - Password contains special characters
-    
+
     Solutions:
     - Reset password with `ALTER USER documenso WITH PASSWORD 'newpassword';`
     - Verify credentials in `pg_hba.conf`
@@ -449,11 +449,11 @@ Monitor these metrics:
 
   </Accordion>
   <Accordion title="Too many connections">
-    Causes: 
+    Causes:
     - Connection pool exhausted
     - Connections not released
     - Multiple instances exceeding limits
-    
+
     Solutions:
     - Reduce `connection_limit`
     - Increase `max_connections`
@@ -461,7 +461,7 @@ Monitor these metrics:
   </Accordion>
   <Accordion title="Database does not exist">
     Create the database:
-    
+
     ```sql
     CREATE DATABASE documenso;
     GRANT ALL PRIVILEGES ON DATABASE documenso TO documenso;
@@ -469,7 +469,7 @@ Monitor these metrics:
   </Accordion>
   <Accordion title="Permission denied">
     Grant permissions:
-    
+
     ```sql
     GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO documenso;
     GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO documenso;

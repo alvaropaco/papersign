@@ -87,7 +87,7 @@ const PortalScene = ({ isStatic }: { isStatic: boolean }) => {
         transition={{ ...POP, delay: 0.04 }}
       >
         <div className="flex h-10 w-10 items-center justify-center rounded-md bg-documenso-200 font-semibold text-documenso-900">
-          {([...organisation.name][0] ?? 'D').toUpperCase()}
+          {([...organisation.name][0] ?? 'P').toUpperCase()}
         </div>
       </motion.div>
 
@@ -119,7 +119,7 @@ const PortalScene = ({ isStatic }: { isStatic: boolean }) => {
             animate={{ x: '150%' }}
             transition={{ duration: 0.85, delay: 1.75, ease: 'easeOut' }}
             className="absolute top-0 bottom-0 left-[20%] w-3/5"
-            style={{ background: 'linear-gradient(105deg, transparent, rgba(162, 231, 113, 0.45), transparent)' }}
+            style={{ background: 'linear-gradient(105deg, transparent, rgba(0, 86, 254, 0.45), transparent)' }}
           />
         </motion.div>
 
@@ -158,7 +158,7 @@ const RedirectScene = () => {
           animate={{ rotate: 360 }}
           transition={{ duration: 0.95, repeat: Number.POSITIVE_INFINITY, ease: 'linear' }}
           className="absolute inset-0 rounded-full border-2"
-          style={{ borderTopColor: '#A2E771' }}
+          style={{ borderTopColor: '#0056FE' }}
         />
 
         <div className="flex h-[34px] w-[34px] items-center justify-center rounded-full bg-muted">
@@ -202,7 +202,7 @@ const SuccessScene = () => {
           animate={{ scale: 2.1, opacity: 0 }}
           transition={{ duration: 1.1, ease: 'easeOut' }}
           className="absolute inset-0 rounded-full border-2"
-          style={{ borderColor: '#A2E771' }}
+          style={{ borderColor: '#0056FE' }}
         />
 
         <motion.div

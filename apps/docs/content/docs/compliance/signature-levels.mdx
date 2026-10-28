@@ -7,23 +7,11 @@ import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 import { Callout } from 'fumadocs-ui/components/callout';
 
 <Callout type="info">
-  Documenso seals all signed documents cryptographically, regardless of signature level, to prevent
+  Papersign seals all signed documents cryptographically, regardless of signature level, to prevent
   any alterations after signing.
 </Callout>
 
-### Compliance Status Overview
-
-| Regulation   | Status    |
-| ------------ | --------- |
-| ESIGN / UETA | Compliant |
-| eIDAS SES    | Compliant |
-| eIDAS AES    | Planned   |
-| eIDAS QES    | Planned   |
-| ZertES       | Planned   |
-
 ## U.S. ESIGN Act
-
-<Callout type="info">Status: Compliant</Callout>
 
 The Electronic Signatures in Global and National Commerce Act (ESIGN Act) is a U.S. federal law that ensures the legal validity and enforceability of electronic signatures and records in commerce.
 
@@ -36,8 +24,6 @@ The Electronic Signatures in Global and National Commerce Act (ESIGN Act) is a U
 - **Security** - Parties must take reasonable steps to ensure the security and integrity of electronic signatures and records
 
 ## UETA (Uniform Electronic Transactions Act)
-
-<Callout type="info">Status: Compliant</Callout>
 
 The Uniform Electronic Transactions Act provides a legal framework for the use of electronic signatures and records in electronic transactions, ensuring they have the same validity and enforceability as paper documents and handwritten signatures.
 
@@ -93,20 +79,6 @@ Under eIDAS, an AES must satisfy four criteria:
 | **Legal Status**           | Higher evidentiary weight than SES; stronger presumption of validity       |
 | **Implementation**         | Typically requires identity verification service and personal certificates |
 
-### Compliance Status
-
-<Callout type="warn">
-  Status: [Planned](https://github.com/documenso/backlog/issues/9) via third party until [Let's
-  Sign](https://github.com/documenso/backlog/issues/21) is realized.
-</Callout>
-
-Current AES progress:
-
-- Cryptographic signature sealing the document against tampering
-- Signing using dedicated hardware (Hardware Security Module)
-- Embedding signer identity in the cryptographic signature (planned)
-- Being a government-audited trusted qualified services provider (planned)
-
 ### When AES Is Appropriate
 
 AES is used when stronger proof of identity and intent is needed:
@@ -140,13 +112,6 @@ QES must meet all AES requirements plus:
 | **Identity Verification**  | Strict verification by a Qualified Trust Service Provider             |
 | **Legal Status**           | Equivalent to handwritten signature across all EU member states       |
 | **Implementation**         | Requires integration with a QTSP; typically involves external service |
-
-### Compliance Status
-
-<Callout type="warn">
-  Status: [Planned](https://github.com/documenso/backlog/issues/32) via third party until [Let's
-  Sign](https://github.com/documenso/backlog/issues/21) is realized.
-</Callout>
 
 ### When QES Is Required
 
@@ -184,9 +149,9 @@ Certain transactions require or benefit from QES:
 
 ---
 
-## What Documenso Provides
+## What Papersign Provides
 
-Documenso supports Simple Electronic Signatures (SES) with features that enhance evidentiary value:
+Papersign supports Simple Electronic Signatures (SES) with features that enhance evidentiary value:
 
 ### SES Features
 
@@ -201,9 +166,9 @@ Documenso supports Simple Electronic Signatures (SES) with features that enhance
 - **Access Codes** - Require signers to enter a code before accessing documents
 - **Signing Order** - Control the sequence of signatures
 
-### What Documenso Does Not Provide
+### What Papersign Does Not Provide
 
-| Capability                                | Status                                                    |
+| Capability                                | Details                                                   |
 | ----------------------------------------- | --------------------------------------------------------- |
 | **Qualified Electronic Signatures (QES)** | Not supported; requires QTSP integration                  |
 | **Advanced Electronic Signatures (AES)**  | Partial; full AES requires identity verification services |
@@ -215,8 +180,6 @@ For transactions requiring AES or QES, you would need to integrate with external
 ---
 
 ## ZertES (Swiss Federal Law)
-
-<Callout type="warn">Status: [Planned](https://github.com/documenso/backlog/issues/34)</Callout>
 
 ZertES is a Swiss federal law that regulates electronic signature compliance. It defines requirements similar to eIDAS for qualified electronic signatures within Switzerland.
 

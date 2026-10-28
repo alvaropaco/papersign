@@ -1,6 +1,6 @@
 ---
 title: Upgrades
-description: Upgrade your self-hosted Documenso installation to get the latest features, security patches, and bug fixes.
+description: Upgrade your self-hosted Papersign installation to get the latest features, security patches, and bug fixes.
 ---
 
 import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
@@ -10,7 +10,7 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 ## Version Policy
 
-Documenso follows [Semantic Versioning](https://semver.org/):
+Papersign follows [Semantic Versioning](https://semver.org/):
 
 | Version Type | Format  | Description                                |
 | ------------ | ------- | ------------------------------------------ |
@@ -19,7 +19,7 @@ Documenso follows [Semantic Versioning](https://semver.org/):
 | Patch        | `x.y.z` | Bug fixes, security patches                |
 
 <Callout type="info">
-  Review the [release notes](https://github.com/documenso/documenso/releases) before upgrading to
+  Review the [release notes](https://github.com/alvaropaco/papersign/releases) before upgrading to
   understand what changes are included.
 </Callout>
 
@@ -37,7 +37,7 @@ For production deployments, pin to a specific version tag to avoid unexpected up
 
 ### View Current Version
 
-Check your running Documenso version:
+Check your running Papersign version:
 
 <Tabs items={['Docker', 'Docker Compose', 'Kubernetes']}>
 <Tab value="Docker">
@@ -68,10 +68,10 @@ kubectl get deployment documenso -n documenso -o jsonpath='{.spec.template.spec.
 View available releases on GitHub:
 
 ```bash
-curl -s https://api.github.com/repos/documenso/documenso/releases/latest | grep tag_name
+curl -s https://api.github.com/repos/alvaropaco/papersign/releases/latest | grep tag_name
 ```
 
-Or visit the [releases page](https://github.com/documenso/documenso/releases).
+Or visit the [releases page](https://github.com/alvaropaco/papersign/releases).
 
 ### Check Available Docker Tags
 
@@ -340,7 +340,7 @@ curl http://localhost:3000/api/health
 
 ## Database Migrations
 
-Documenso runs database migrations automatically when the container starts. No manual intervention is required.
+Papersign runs database migrations automatically when the container starts. No manual intervention is required.
 
 ### Migration Process
 
@@ -446,7 +446,7 @@ Major version upgrades may include breaking changes that require manual steps.
 <Step>
 ### Read release notes
 
-Read the [release notes](https://github.com/documenso/documenso/releases) carefully.
+Read the [release notes](https://github.com/alvaropaco/papersign/releases) carefully.
 
 </Step>
 <Step>
@@ -491,7 +491,7 @@ Compare your current environment with the latest example:
 
 ```bash
 # Download latest example
-curl -O https://raw.githubusercontent.com/documenso/documenso/main/.env.example
+curl -O https://raw.githubusercontent.com/alvaropaco/papersign/main/.env.example
 
 # Compare with your current config
 diff .env .env.example
@@ -604,8 +604,8 @@ psql "postgresql://user:password@host:5432/documenso" < backup-20240115-120000.s
     - Clear browser cache and cookies
     - Check for new environment variables in release notes
     - Verify all environment variables are correctly set
-    - Check application logs: 
-    
+    - Check application logs:
+
     ```bash
     docker logs documenso 2>&1 | grep -i -E "(warn|error)"
     ```

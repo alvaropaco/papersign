@@ -2,6 +2,10 @@ import { env } from '@documenso/lib/utils/env';
 import { AppError, AppErrorCode } from '../errors/app-error';
 import { SignatureLevel, type TSignatureLevel } from '../types/signature-level';
 
+export const APP_NAME = 'Papersign';
+export const APP_WEBSITE_URL = 'https://papersign.io';
+export const APP_DOCS_URL = 'https://docs.papersign.io';
+
 export const APP_DOCUMENT_UPLOAD_SIZE_LIMIT = Number(env('NEXT_PUBLIC_DOCUMENT_SIZE_UPLOAD_LIMIT')) || 50;
 
 export const NEXT_PUBLIC_WEBAPP_URL = () => env('NEXT_PUBLIC_WEBAPP_URL') ?? 'http://localhost:3000';
@@ -46,10 +50,10 @@ export const NEXT_PUBLIC_SIGNING_CONTACT_INFO = () =>
   env('NEXT_PUBLIC_SIGNING_CONTACT_INFO') ?? NEXT_PUBLIC_WEBAPP_URL();
 
 export const NEXT_PUBLIC_TERMS_OF_SERVICE_URL = () =>
-  env('NEXT_PUBLIC_TERMS_OF_SERVICE_URL') ?? (IS_DOCUMENSO_CLOUD() ? 'https://documen.so/terms' : undefined);
+  env('NEXT_PUBLIC_TERMS_OF_SERVICE_URL') ?? (IS_DOCUMENSO_CLOUD() ? `${APP_WEBSITE_URL}/terms` : undefined);
 
 export const NEXT_PUBLIC_PRIVACY_POLICY_URL = () =>
-  env('NEXT_PUBLIC_PRIVACY_POLICY_URL') ?? (IS_DOCUMENSO_CLOUD() ? 'https://documen.so/privacy' : undefined);
+  env('NEXT_PUBLIC_PRIVACY_POLICY_URL') ?? (IS_DOCUMENSO_CLOUD() ? `${APP_WEBSITE_URL}/privacy` : undefined);
 
 export const NEXT_PUBLIC_IMPRINT_URL = () => env('NEXT_PUBLIC_IMPRINT_URL');
 
@@ -62,9 +66,9 @@ export const NEXT_PRIVATE_INTERNAL_WEBAPP_URL = () =>
 export const IS_BILLING_ENABLED = () => env('NEXT_PUBLIC_FEATURE_BILLING_ENABLED') === 'true';
 
 /**
- * Whether this instance is Documenso Cloud (managed SaaS).
+ * Whether this instance is Papersign Cloud (managed SaaS).
  *
- * Used so we can show a different UI for Documenso Cloud and self-hosted instances since
+ * Used so we can show a different UI for Papersign Cloud and self-hosted instances since
  * there are things like billing, upsells, documenso links, etc that don't make sense for self-hosted instances.
  */
 export const IS_DOCUMENSO_CLOUD = () => env('NEXT_PUBLIC_IS_DOCUMENSO_CLOUD') === 'true';
@@ -72,7 +76,7 @@ export const IS_DOCUMENSO_CLOUD = () => env('NEXT_PUBLIC_IS_DOCUMENSO_CLOUD') ==
 export const API_V2_BETA_URL = '/api/v2-beta';
 export const API_V2_URL = '/api/v2';
 
-export const SUPPORT_EMAIL = env('NEXT_PUBLIC_SUPPORT_EMAIL') ?? 'support@documenso.com';
+export const SUPPORT_EMAIL = env('NEXT_PUBLIC_SUPPORT_EMAIL') ?? 'support@papersign.io';
 
 export const USE_INTERNAL_URL_BROWSERLESS = () => env('NEXT_PUBLIC_USE_INTERNAL_URL_BROWSERLESS') === 'true';
 
@@ -100,12 +104,12 @@ export const IS_AI_FEATURES_CONFIGURED = (): boolean => {
 export const NEXT_PRIVATE_USE_PLAYWRIGHT_PDF = () => env('NEXT_PRIVATE_USE_PLAYWRIGHT_PDF') === 'true';
 
 export const NEXT_PRIVATE_SIGNING_TIMESTAMP_AUTHORITY = () => env('NEXT_PRIVATE_SIGNING_TIMESTAMP_AUTHORITY');
-export const NEXT_PRIVATE_SIGNING_REASON = () => env('NEXT_PRIVATE_SIGNING_REASON') || 'Signed by Documenso';
+export const NEXT_PRIVATE_SIGNING_REASON = () => env('NEXT_PRIVATE_SIGNING_REASON') || 'Signed by Papersign';
 
 export const NEXT_PRIVATE_SIGNING_TRANSPORT = () => env('NEXT_PRIVATE_SIGNING_TRANSPORT') || 'local';
 
 /**
- * Whether this Documenso instance is running in CSC (Cloud Signature Consortium) mode.
+ * Whether this Papersign instance is running in CSC (Cloud Signature Consortium) mode.
  *
  * CSC mode routes signing through a third-party Trust Service Provider for
  * Advanced and Qualified Electronic Signatures (AES/QES). It is instance-wide
@@ -155,4 +159,4 @@ export const CSC_INSTANCE_SIGNATURE_LEVEL = (): TSignatureLevel => {
   return value;
 };
 
-export const DOCUMENSO_CLOUD_ENTERPRISE_CTA_URL = 'https://documen.so/enterprise-cta';
+export const DOCUMENSO_CLOUD_ENTERPRISE_CTA_URL = APP_WEBSITE_URL;

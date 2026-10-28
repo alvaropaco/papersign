@@ -398,7 +398,7 @@ const BillingPlanForm = ({ value, onChange, plans, canCreateFreeOrganisation }: 
 
       <div className="mt-6 text-center">
         <Link
-          to="https://documenso.com/pricing"
+          to="https://papersign.io/pricing"
           className="flex items-center justify-center gap-1 text-primary text-sm hover:text-primary/80 hover:underline"
           target="_blank"
         >

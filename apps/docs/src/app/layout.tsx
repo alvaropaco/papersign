@@ -10,19 +10,22 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://docs.documenso.com'),
+  metadataBase: new URL('https://docs.papersign.io'),
   title: {
-    template: '%s | Documenso Docs',
-    default: 'Documenso Docs',
+    template: '%s | Papersign Docs',
+    default: 'Papersign Docs',
   },
-  description: 'The official documentation for Documenso, the open-source document signing platform.',
+  description: 'The official documentation for Papersign, the open-source document signing platform.',
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
-    siteName: 'Documenso Docs',
+    siteName: 'Papersign Docs',
     type: 'website',
+    url: 'https://docs.papersign.io',
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@documenso',
   },
 };
 
@@ -30,7 +33,7 @@ export default function Layout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning>
       <body className="flex min-h-screen flex-col">
-        <PlausibleProvider domain="documenso.com">
+        <PlausibleProvider domain="papersign.io">
           <RootProvider>{children}</RootProvider>
         </PlausibleProvider>
       </body>

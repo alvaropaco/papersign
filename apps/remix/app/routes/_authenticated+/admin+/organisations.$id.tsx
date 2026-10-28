@@ -888,7 +888,7 @@ const OrganisationAdminForm = ({ organisation, licenseFlags }: OrganisationAdmin
                 <span>¹&nbsp;</span>
                 <Trans>Your current license does not include these features.</Trans>{' '}
                 <Link
-                  to="https://docs.documenso.com/users/licenses/enterprise-edition"
+                  to="https://docs.papersign.io/users/licenses/enterprise-edition"
                   target="_blank"
                   className="text-foreground underline hover:opacity-80"
                 >

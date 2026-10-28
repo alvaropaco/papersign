@@ -31,7 +31,7 @@ The most common workflow: upload a PDF, add recipients with signature fields, an
 <Tab value="TypeScript">
 ```typescript
 const API_TOKEN = process.env.DOCUMENSO_API_TOKEN;
-const BASE_URL = 'https://app.documenso.com/api/v2';
+const BASE_URL = 'https://app.papersign.io/api/v2';
 
 type Recipient = {
   email: string;
@@ -165,7 +165,7 @@ result.recipients.forEach((r) => console.log(`${r.email}: ${r.signingUrl}`));
 set -e
 
 API_TOKEN="YOUR_API_TOKEN"
-BASE_URL="https://app.documenso.com/api/v2"
+BASE_URL="https://app.papersign.io/api/v2"
 PDF_FILE="./contract.pdf"
 
 # Step 1: Create envelope with recipients and fields
@@ -245,7 +245,7 @@ echo $DISTRIBUTE_RESPONSE | jq '.recipients[] | {email, signingUrl}'
 </Tab>
 </Tabs>
 
-`externalId` is your application's own reference for this document, such as an invoice number or a database key. Documenso stores it on the envelope and repeats it in every webhook as `payload.externalId`, so your handler can match the event to your record without keeping a lookup table of Documenso IDs. To react when everyone has signed, see [Workflow 4](#workflow-4-wait-for-completion-with-webhooks). To fetch the finished PDF, see [Workflow 5](#workflow-5-download-signed-documents).
+`externalId` is your application's own reference for this document, such as an invoice number or a database key. Papersign stores it on the envelope and repeats it in every webhook as `payload.externalId`, so your handler can match the event to your record without keeping a lookup table of Papersign IDs. To react when everyone has signed, see [Workflow 4](#workflow-4-wait-for-completion-with-webhooks). To fetch the finished PDF, see [Workflow 5](#workflow-5-download-signed-documents).
 
 ---
 
@@ -274,7 +274,7 @@ Use templates for repeatable document workflows. This example creates an employm
 <Tab value="TypeScript">
 ```typescript
 const API_TOKEN = process.env.DOCUMENSO_API_TOKEN;
-const BASE_URL = 'https://app.documenso.com/api/v2';
+const BASE_URL = 'https://app.papersign.io/api/v2';
 
 type EmployeeData = {
   email: string;
@@ -429,7 +429,7 @@ console.log('Signing URL:', result.signingUrl);
 set -e
 
 API_TOKEN="YOUR_API_TOKEN"
-BASE_URL="https://app.documenso.com/api/v2"
+BASE_URL="https://app.papersign.io/api/v2"
 TEMPLATE_ID=123
 
 # Variables
@@ -513,7 +513,7 @@ Send the same document to multiple recipients in parallel. Useful for policy ack
 <Tab value="TypeScript">
 ```typescript
 const API_TOKEN = process.env.DOCUMENSO_API_TOKEN;
-const BASE_URL = 'https://app.documenso.com/api/v2';
+const BASE_URL = 'https://app.papersign.io/api/v2';
 
 type BulkRecipient = {
   email: string;
@@ -636,7 +636,7 @@ results.failed.forEach((f) => console.error(`${f.email}: ${f.error}`));
 #!/bin/bash
 
 API_TOKEN="YOUR_API_TOKEN"
-BASE_URL="https://app.documenso.com/api/v2"
+BASE_URL="https://app.papersign.io/api/v2"
 TEMPLATE_ID=456
 
 # Get signer slot ID from template
@@ -808,7 +808,7 @@ app.listen(3000, () => console.log('Webhook server running on port 3000'));
 
 ### Register the Webhook
 
-Register your endpoint in the Documenso dashboard:
+Register your endpoint in the Papersign dashboard:
 
 {/* prettier-ignore */}
 <Steps>
@@ -893,7 +893,7 @@ The `version` query parameter accepts `original`, `pending`, or `signed`.
 <Tab value="TypeScript">
 ```typescript
 const API_TOKEN = process.env.DOCUMENSO_API_TOKEN;
-const BASE_URL = 'https://app.documenso.com/api/v2';
+const BASE_URL = 'https://app.papersign.io/api/v2';
 
 type DownloadVersion = 'original' | 'pending' | 'signed';
 
@@ -979,7 +979,7 @@ await downloadAllCompletedDocuments('./downloads');
 #!/bin/bash
 
 API_TOKEN="YOUR_API_TOKEN"
-BASE_URL="https://app.documenso.com/api/v2"
+BASE_URL="https://app.papersign.io/api/v2"
 ENVELOPE_ID="envelope_abc123"
 OUTPUT_DIR="./downloads"
 
@@ -1100,14 +1100,14 @@ type ApiError = {
   details?: Record<string, unknown>;
 };
 
-class DocumensoApiError extends Error {
+class PapersignApiError extends Error {
   code?: string;
   statusCode: number;
   details?: Record<string, unknown>;
 
   constructor(error: ApiError) {
     super(error.message);
-    this.name = 'DocumensoApiError';
+    this.name = 'PapersignApiError';
     this.code = error.code;
     this.statusCode = error.statusCode;
     this.details = error.details;
@@ -1117,7 +1117,7 @@ class DocumensoApiError extends Error {
 async function handleApiResponse<T>(response: Response): Promise<T> {
   if (!response.ok) {
     const error = await response.json();
-    throw new DocumensoApiError({
+    throw new PapersignApiError({
       message: error.message || 'Unknown error',
       code: error.code,
       statusCode: response.status,
@@ -1139,7 +1139,7 @@ try {
   const envelope = await handleApiResponse<{ id: string }>(response);
   console.log('Created:', envelope.id);
 } catch (error) {
-  if (error instanceof DocumensoApiError) {
+  if (error instanceof PapersignApiError) {
     switch (error.statusCode) {
       case 400:
         console.error('Invalid request:', error.message);
@@ -1213,7 +1213,7 @@ function validatePdfFile(buffer: Buffer, maxSizeMb = 10) {
 
 ## See Also
 
-- [API Reference](https://openapi.documenso.com/) - Full endpoint documentation
+- [API Reference](https://openapi.papersign.io/) - Full endpoint documentation
 - [Documents API](/docs/developers/api/documents) - Document operations
 - [Templates API](/docs/developers/api/templates) - Template management
 - [Webhooks](/docs/developers/webhooks/setup) - Webhook configuration

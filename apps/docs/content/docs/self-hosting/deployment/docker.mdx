@@ -1,6 +1,6 @@
 ---
 title: Docker
-description: Run Documenso as a standalone Docker container with an external database. Ideal for container platforms like AWS ECS, Google Cloud Run, or Azure Container Instances.
+description: Run Papersign as a standalone Docker container with an external database. Ideal for container platforms like AWS ECS, Google Cloud Run, or Azure Container Instances.
 ---
 
 import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
@@ -26,7 +26,7 @@ docker --version
 
 ## Pulling the Docker Image
 
-The Documenso image is available on both DockerHub and GitHub Container Registry:
+The Papersign image is available on both DockerHub and GitHub Container Registry:
 
 ```bash
 # DockerHub
@@ -52,14 +52,14 @@ docker pull ghcr.io/documenso/documenso:latest
 
 ### Required Variables
 
-These variables must be set for Documenso to start:
+These variables must be set for Papersign to start:
 
 | Variable                                | Description                                                                 | Default                       |
 | --------------------------------------- | --------------------------------------------------------------------------- | ----------------------------- |
 | `NEXTAUTH_SECRET`                       | Secret key for session encryption. Generate with `openssl rand -base64 32`  | -                             |
 | `NEXT_PRIVATE_ENCRYPTION_KEY`           | Primary encryption key (minimum 32 characters)                              | -                             |
 | `NEXT_PRIVATE_ENCRYPTION_SECONDARY_KEY` | Secondary encryption key (minimum 32 characters)                            | -                             |
-| `NEXT_PUBLIC_WEBAPP_URL`                | Public URL where Documenso is accessible (e.g., `https://sign.example.com`) | -                             |
+| `NEXT_PUBLIC_WEBAPP_URL`                | Public URL where Papersign is accessible (e.g., `https://sign.example.com`) | -                             |
 | `NEXT_PRIVATE_INTERNAL_WEBAPP_URL`      | Internal URL the app uses to call itself (for background jobs)              | Same as `NEXT_PUBLIC_WEBAPP_URL` |
 | `NEXT_PRIVATE_DATABASE_URL`             | PostgreSQL connection string                                                | -                             |
 | `NEXT_PRIVATE_SMTP_TRANSPORT`           | Email transport: `smtp-auth`, `smtp-api`, `resend`, or `mailchannels`       | `smtp-auth`                   |
@@ -68,7 +68,7 @@ These variables must be set for Documenso to start:
 
 ### Database Connection
 
-Documenso requires two database connection strings:
+Papersign requires two database connection strings:
 
 | Variable                           | Required     | Default                     | Description                       |
 | ---------------------------------- | ------------ | --------------------------- | --------------------------------- |
@@ -143,7 +143,7 @@ docker run -d \
   -e NEXT_PRIVATE_SMTP_PORT="587" \
   -e NEXT_PRIVATE_SMTP_USERNAME="your-smtp-user" \
   -e NEXT_PRIVATE_SMTP_PASSWORD="your-smtp-password" \
-  -e NEXT_PRIVATE_SMTP_FROM_NAME="Documenso" \
+  -e NEXT_PRIVATE_SMTP_FROM_NAME="Papersign" \
   -e NEXT_PRIVATE_SMTP_FROM_ADDRESS="noreply@example.com" \
   documenso/documenso:latest
 ```
@@ -192,7 +192,7 @@ NEXT_PRIVATE_SMTP_HOST=smtp.example.com
 NEXT_PRIVATE_SMTP_PORT=587
 NEXT_PRIVATE_SMTP_USERNAME=your-smtp-user
 NEXT_PRIVATE_SMTP_PASSWORD=your-smtp-password
-NEXT_PRIVATE_SMTP_FROM_NAME=Documenso
+NEXT_PRIVATE_SMTP_FROM_NAME=Papersign
 NEXT_PRIVATE_SMTP_FROM_ADDRESS=noreply@example.com
 ```
 
@@ -209,7 +209,7 @@ docker run -d \
 
 ## Health Checks
 
-Documenso provides health check endpoints for monitoring:
+Papersign provides health check endpoints for monitoring:
 
 <Callout type="info">
   If a certificate is mounted but signing fails, ensure `NEXT_PRIVATE_SIGNING_LOCAL_FILE_PATH`
@@ -254,7 +254,7 @@ docker inspect --format='{{.State.Health.Status}}' documenso
 
 ## Updating the Container
 
-To update Documenso to a new version:
+To update Papersign to a new version:
 
 {/* prettier-ignore */}
 <Steps>
@@ -300,7 +300,7 @@ docker run -d \
 
 ## Persistence
 
-The Documenso container is stateless. All persistent data is stored in the PostgreSQL database.
+The Papersign container is stateless. All persistent data is stored in the PostgreSQL database.
 
 By default, documents are also stored in the database. For high-volume deployments, configure S3-compatible storage instead. See [Storage Configuration](/docs/self-hosting/configuration/storage) for S3 setup.
 

@@ -61,7 +61,7 @@ No configuration required. Database storage is enabled when `NEXT_PUBLIC_UPLOAD_
 
 ## S3 Configuration
 
-S3 storage is recommended for production deployments. Documenso supports AWS S3 and custom endpoints for S3-compatible storage services.
+S3 storage is recommended for production deployments. Papersign supports AWS S3 and custom endpoints for S3-compatible storage services.
 
 ### Required Variables
 
@@ -176,7 +176,7 @@ If you prefer to run your own object storage, consider these S3-compatible optio
 These providers are optional and are not included in the default Docker Compose setup, which uses PostgreSQL for document storage. To connect one, set `NEXT_PUBLIC_UPLOAD_TRANSPORT=s3` and configure `NEXT_PRIVATE_UPLOAD_ENDPOINT`, the bucket, region, and access credentials for your deployment.
 
 <Callout type="warn">
-  These are alternatives to evaluate, not verified Documenso integrations. Test uploads, downloads,
+  These are alternatives to evaluate, not verified Papersign integrations. Test uploads, downloads,
   presigned URLs, and CORS before using either provider in production.
 </Callout>
 
@@ -228,7 +228,7 @@ NEXT_PRIVATE_UPLOAD_REGION=us-east-1
 
 ## Azure Blob Storage
 
-Azure Blob Storage is supported as a native transport (not S3-compatible). Documenso uses the official `@azure/storage-blob` SDK and signs SAS URLs with the Storage Account key for browser uploads and downloads.
+Azure Blob Storage is supported as a native transport (not S3-compatible). Papersign uses the official `@azure/storage-blob` SDK and signs SAS URLs with the Storage Account key for browser uploads and downloads.
 
 ### Required Variables
 
@@ -337,7 +337,7 @@ Use Amazon CloudFront to serve documents with lower latency and reduced S3 costs
 
 ### Prerequisites
 
-- An S3 bucket configured for Documenso
+- An S3 bucket configured for Papersign
 - A CloudFront distribution with the S3 bucket as origin
 - A CloudFront key pair for signing URLs
 
@@ -425,7 +425,7 @@ Signed URLs expire after 1 hour.
 
 ## Migration Between Storage Backends
 
-Documenso does not provide automatic migration between storage backends. Each document's storage location is recorded in the database.
+Papersign does not provide automatic migration between storage backends. Each document's storage location is recorded in the database.
 
 <Callout type="warn">
   Documents uploaded to one storage backend cannot be automatically migrated to another. Plan your
@@ -466,7 +466,7 @@ This requires custom scripts and database modifications.
 
 ### Hybrid Operation
 
-During migration, Documenso can read from both backends. The `DocumentData.type` field indicates where each document is stored.
+During migration, Papersign can read from both backends. The `DocumentData.type` field indicates where each document is stored.
 
 - `BYTES_64`: Stored in database
 - `S3_PATH`: Stored in S3

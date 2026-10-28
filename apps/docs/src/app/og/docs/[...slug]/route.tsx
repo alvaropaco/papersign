@@ -47,7 +47,7 @@ export async function GET(_req: Request, { params }: RouteContext<'/og/docs/[...
         position: 'relative',
       }}
     >
-      {/* Green accent bar */}
+      {/* Brand accent bar */}
       <div
         style={{
           position: 'absolute',
@@ -55,7 +55,7 @@ export async function GET(_req: Request, { params }: RouteContext<'/og/docs/[...
           left: 0,
           right: 0,
           height: '6px',
-          backgroundColor: '#6DC947',
+          backgroundColor: '#0056FE',
         }}
       />
 
@@ -67,8 +67,8 @@ export async function GET(_req: Request, { params }: RouteContext<'/og/docs/[...
           gap: '16px',
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={logoSrc} alt="Documenso" height="28" />
+        {/* biome-ignore lint/performance/noImgElement: next/og requires a native image element. */}
+        <img src={logoSrc} alt="papersign.io" height="28" />
         <span
           style={{
             color: '#D4D4D8',
@@ -93,7 +93,7 @@ export async function GET(_req: Request, { params }: RouteContext<'/og/docs/[...
       >
         <h1
           style={{
-            color: '#18181B',
+            color: '#00102B',
             fontSize: page.data.title.length > 40 ? '48px' : '56px',
             fontWeight: 700,
             lineHeight: 1.15,
@@ -126,7 +126,7 @@ export async function GET(_req: Request, { params }: RouteContext<'/og/docs/[...
 
       {/* Bottom: URL */}
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <span style={{ color: '#A1A1AA', fontSize: '16px', fontWeight: 400 }}>docs.documenso.com{page.url}</span>
+        <span style={{ color: '#A1A1AA', fontSize: '16px', fontWeight: 400 }}>docs.papersign.io{page.url}</span>
       </div>
     </div>,
     {

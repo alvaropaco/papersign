@@ -10,7 +10,7 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 ## Overview
 
-Webhooks are HTTP callbacks triggered by specific events in Documenso. When an event occurs (such as a document being signed), Documenso sends an HTTP POST request to your configured URL with details about the event.
+Webhooks are HTTP callbacks triggered by specific events in Papersign. When an event occurs (such as a document being signed), Papersign sends an HTTP POST request to your configured URL with details about the event.
 
 Common use cases include:
 
@@ -25,7 +25,7 @@ Common use cases include:
 
 ## Creating a Webhook Endpoint
 
-Before configuring a webhook in Documenso, you need an endpoint that can receive HTTP POST requests. Here's a minimal example:
+Before configuring a webhook in Papersign, you need an endpoint that can receive HTTP POST requests. Here's a minimal example:
 
 <Tabs items={['Node.js (Express)', 'Python (Flask)', 'Go']}>
 <Tab value="Node.js (Express)">
@@ -148,10 +148,10 @@ func main() {
 </Tabs>
 
 <Callout type="warn">
-  Always respond with a `2xx` status within 10 seconds. Documenso will retry failed deliveries according to the configured background-job provider.
+  Always respond with a `2xx` status within 10 seconds. Papersign will retry failed deliveries according to the configured background-job provider.
 </Callout>
 
-## Configuring Webhooks in Documenso via the Dashboard
+## Configuring Webhooks in Papersign via the Dashboard
 
 {/* prettier-ignore */}
 <Steps>
@@ -209,7 +209,7 @@ Your webhook endpoint must meet these requirements:
 | **Availability** | Must be publicly accessible from the internet |
 
 <Callout type="warn">
-  Documenso performs a best-effort check that rejects webhook URLs which use or resolve to private
+  Papersign performs a best-effort check that rejects webhook URLs which use or resolve to private
   or loopback addresses. This is not a complete SSRF mitigation — it does not cover DNS rebinding
   and fails open on DNS lookup errors or timeouts — so self-hosted deployments should still enforce
   network-level egress rules. Self-hosters that need to deliver to a hostname resolving to a
@@ -248,7 +248,7 @@ See [Webhook Events](/docs/developers/webhooks/events) for detailed payload info
 
 ## Testing Webhooks
 
-Documenso provides a built-in testing feature to verify your webhook endpoint works correctly.
+Papersign provides a built-in testing feature to verify your webhook endpoint works correctly.
 
 {/* prettier-ignore */}
 <Steps>
@@ -323,7 +323,7 @@ Navigate to the webhook call details page
 Click the **Resend** button
 </Step>
 <Step>
-Documenso will attempt to deliver the same payload again
+Papersign will attempt to deliver the same payload again
 </Step>
 </Steps>
 
@@ -339,7 +339,7 @@ For self-hosted deployments, retries are handled by the background-job provider 
 | BullMQ | 3 | Exponential backoff starting at 1 second |
 | Inngest | 5 | Inngest platform backoff |
 
-Only the individual delivery (`WebhookCall`) record is marked as failed. Documenso does not automatically disable the webhook or apply a circuit breaker, so future matching events continue to be delivered. After automatic attempts are exhausted, you can manually resend a failed delivery from the dashboard.
+Only the individual delivery (`WebhookCall`) record is marked as failed. Papersign does not automatically disable the webhook or apply a circuit breaker, so future matching events continue to be delivered. After automatic attempts are exhausted, you can manually resend a failed delivery from the dashboard.
 
 <Callout type="warn">
   If your endpoint consistently fails, consider reviewing your server logs and ensuring your endpoint meets all [URL requirements](#webhook-url-requirements).

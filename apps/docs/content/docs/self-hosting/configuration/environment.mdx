@@ -1,18 +1,18 @@
 ---
 title: Environment Variables
-description: Complete reference for all environment variables used to configure a self-hosted Documenso instance.
+description: Complete reference for all environment variables used to configure a self-hosted Papersign instance.
 ---
 
 ## Required Variables
 
-These variables must be set for Documenso to function:
+These variables must be set for Papersign to function:
 
 | Variable                                | Description                                                                                |
 | --------------------------------------- | ------------------------------------------------------------------------------------------ |
 | `NEXTAUTH_SECRET`                       | Secret key for NextAuth.js encryption and signing. Generate with `openssl rand -base64 32` |
 | `NEXT_PRIVATE_ENCRYPTION_KEY`           | Primary encryption key for symmetric encryption (minimum 32 characters)                    |
 | `NEXT_PRIVATE_ENCRYPTION_SECONDARY_KEY` | Secondary encryption key for symmetric encryption (minimum 32 characters)                  |
-| `NEXT_PUBLIC_WEBAPP_URL`                | Public URL of your Documenso instance (e.g., `https://sign.example.com`)                   |
+| `NEXT_PUBLIC_WEBAPP_URL`                | Public URL of your Papersign instance (e.g., `https://sign.example.com`)                   |
 | `NEXT_PRIVATE_DATABASE_URL`             | PostgreSQL connection URL with connection pooling                                          |
 | `NEXT_PRIVATE_SMTP_FROM_ADDRESS`        | Email address used as the sender for all outgoing emails                                   |
 | `NEXT_PRIVATE_SMTP_FROM_NAME`           | Display name for the sender of outgoing emails                                             |
@@ -30,7 +30,7 @@ These variables must be set for Documenso to function:
 
 ## Database Configuration
 
-Documenso requires PostgreSQL 14 or higher.
+Papersign requires PostgreSQL 14 or higher.
 
 | Variable                           | Required     | Description                                                                                |
 | ---------------------------------- | ------------ | ------------------------------------------------------------------------------------------ |
@@ -92,7 +92,7 @@ Callback URL: `https://<your-domain>/api/auth/callback/microsoft`
 | --------------------------------------- | ------- | ------------------------------------------------------------------------ |
 | `NEXT_PRIVATE_WEBHOOK_SSRF_BYPASS_HOSTS` | -       | Comma-separated hostnames or IPs allowed to resolve to private addresses |
 
-Before delivering a webhook, Documenso checks whether the target resolves to a
+Before delivering a webhook, Papersign checks whether the target resolves to a
 private or loopback address and blocks it if so. This check is best-effort and
 fails open. Use `NEXT_PRIVATE_WEBHOOK_SSRF_BYPASS_HOSTS` to allow specific
 internal hosts, for example when delivering to a service on your own network:
@@ -105,7 +105,7 @@ NEXT_PRIVATE_WEBHOOK_SSRF_BYPASS_HOSTS="hooks.internal.example,10.0.0.5"
 
 ## Email Configuration
 
-Documenso supports multiple email transports for sending notifications.
+Papersign supports multiple email transports for sending notifications.
 
 ### Transport Selection
 
@@ -163,7 +163,7 @@ For detailed email setup, see [Email Configuration](/docs/self-hosting/configura
 
 ## Storage Configuration
 
-Documenso can store documents in the database or S3-compatible storage.
+Papersign can store documents in the database or S3-compatible storage.
 
 | Variable                                 | Description                                 | Default    |
 | ---------------------------------------- | ------------------------------------------- | ---------- |
@@ -197,7 +197,7 @@ For detailed storage setup, see [Storage Configuration](/docs/self-hosting/confi
 
 ## Signing Certificate Configuration
 
-Documenso requires a certificate to digitally sign documents.
+Papersign requires a certificate to digitally sign documents.
 
 ### Transport Selection
 
@@ -317,7 +317,7 @@ You can control which methods are available for users to sign in with the follow
 - **`NEXT_PUBLIC_DISABLE_EMAIL_PASSWORD_SIGNIN`**: Set to `true` to disable email/password signin only. The email/password form is hidden, the `/forgot-password` and `/reset-password` pages redirect to `/signin`, and the corresponding server endpoints reject requests. SSO signin is unaffected.
 - **`NEXT_PUBLIC_DISABLE_GOOGLE_SIGNIN`**, **`NEXT_PUBLIC_DISABLE_MICROSOFT_SIGNIN`**, **`NEXT_PUBLIC_DISABLE_OIDC_SIGNIN`**: Set to `true` to hide the matching SSO button on the signin page. Useful when an SSO provider is kept configured for account linking but not advertised as a signin entry point.
 
-These flags are opt-in: when none are set, signin behaviour is unchanged from a stock Documenso instance.
+These flags are opt-in: when none are set, signin behaviour is unchanged from a stock Papersign instance.
 
 ```bash
 # Allow only OIDC signin (e.g. enterprise SSO-only)
@@ -351,7 +351,7 @@ NEXT_PUBLIC_DISABLE_MICROSOFT_SIGNIN="true"
 
 ## AI Features
 
-Documenso can use Google Vertex AI for recipient and field detection.
+Papersign can use Google Vertex AI for recipient and field detection.
 
 | Variable                   | Description                                    | Default  |
 | -------------------------- | ---------------------------------------------- | -------- |
@@ -365,7 +365,7 @@ AI features must also be enabled in organisation/team settings after configurati
 
 ## Document Conversion
 
-Documenso can accept `.docx` uploads by sending them to a [Gotenberg](https://gotenberg.dev) service that converts them to PDF. When `NEXT_PRIVATE_DOCUMENT_CONVERSION_URL` is unset, DOCX uploads are rejected and only PDFs are accepted.
+Papersign can accept `.docx` uploads by sending them to a [Gotenberg](https://gotenberg.dev) service that converts them to PDF. When `NEXT_PRIVATE_DOCUMENT_CONVERSION_URL` is unset, DOCX uploads are rejected and only PDFs are accepted.
 
 | Variable                                      | Description                                                                                       | Default |
 | --------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------- |
@@ -382,7 +382,7 @@ For setup, image-build instructions, and security recommendations, see [Document
 
 ## Background Jobs
 
-Documenso supports multiple background job providers for processing emails, documents, webhooks, and scheduled tasks.
+Papersign supports multiple background job providers for processing emails, documents, webhooks, and scheduled tasks.
 
 ### Provider Selection
 
@@ -443,7 +443,7 @@ Telemetry collects only: app version, installation ID, and node ID. No personal 
 
 ## Enterprise Features
 
-These variables require an active [Enterprise Edition](/docs/policies/enterprise-edition) license. Obtain a license key from [license.documenso.com](https://license.documenso.com) and set it below to unlock enterprise features such as SSO, embed editor, and 21 CFR Part 11 compliance. See [Apply Your License Key](/docs/self-hosting/configuration/license) for step-by-step setup.
+These variables require an active [Enterprise Edition](/docs/policies/enterprise-edition) license. Contact [sales](mailto:sales@papersign.io) to obtain a license key and set it below to unlock enterprise features such as SSO, embed editor, and 21 CFR Part 11-related controls. See [Apply Your License Key](/docs/self-hosting/configuration/license) for step-by-step setup.
 
 | Variable                             | Description                                      |
 | ------------------------------------ | ------------------------------------------------ |
@@ -477,7 +477,7 @@ NEXT_PRIVATE_SMTP_HOST="smtp.example.com"
 NEXT_PRIVATE_SMTP_PORT=587
 NEXT_PRIVATE_SMTP_USERNAME="your-smtp-user"
 NEXT_PRIVATE_SMTP_PASSWORD="your-smtp-password"
-NEXT_PRIVATE_SMTP_FROM_NAME="Documenso"
+NEXT_PRIVATE_SMTP_FROM_NAME="Papersign"
 NEXT_PRIVATE_SMTP_FROM_ADDRESS="noreply@example.com"
 
 # Signing (certificate must be configured)

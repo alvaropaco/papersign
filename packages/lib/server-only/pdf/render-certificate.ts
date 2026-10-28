@@ -278,7 +278,7 @@ const renderColumnTwo = (options: RenderColumnOptions) => {
   const isRejected = Boolean(recipient.logs.rejected);
 
   if (recipient.signatureField?.secondaryId) {
-    // Signature container with green border
+    // Signature container with brand border
     const signatureContainer = new Konva.Group({ x: 0, y: 0 });
 
     const minSignatureHeight = 40;
@@ -333,7 +333,7 @@ const renderColumnTwo = (options: RenderColumnOptions) => {
       y: 2,
       width: maxSignatureWidth,
       height: signatureHeight,
-      stroke: 'rgba(122, 196, 85, 0.6)',
+      stroke: 'rgba(0, 86, 254, 0.6)',
       strokeWidth: 1,
       cornerRadius: 8,
     });
@@ -344,7 +344,7 @@ const renderColumnTwo = (options: RenderColumnOptions) => {
       y: 0,
       width: maxSignatureWidth + 4,
       height: signatureHeight + 4,
-      stroke: 'rgba(122, 196, 85, 0.1)',
+      stroke: 'rgba(0, 86, 254, 0.1)',
       strokeWidth: 4,
       cornerRadius: 8,
     });
@@ -586,7 +586,7 @@ const renderBranding = async ({ qrToken, i18n }: { qrToken: string | null; i18n:
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   const img = new SkiaImage(logo) as unknown as HTMLImageElement;
 
-  const documensoImage = new Konva.Image({
+  const brandingImage = new Konva.Image({
     image: img,
     height: brandingHeight,
     width: brandingHeight * (img.width / img.height),
@@ -599,7 +599,7 @@ const renderBranding = async ({ qrToken, i18n }: { qrToken: string | null; i18n:
     y: qrSize + 16,
   });
   logoGroup.add(text);
-  logoGroup.add(documensoImage);
+  logoGroup.add(brandingImage);
 
   branding.add(logoGroup);
 

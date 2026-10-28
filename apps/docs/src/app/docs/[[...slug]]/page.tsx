@@ -6,8 +6,8 @@ import { getPageImage, source } from '@/lib/source';
 import { getMDXComponents } from '@/mdx-components';
 
 const gitConfig = {
-  user: 'documenso',
-  repo: 'documenso',
+  user: 'alvaropaco',
+  repo: 'papersign',
   branch: 'main',
   contentPath: 'apps/docs/content/docs',
 };
@@ -61,8 +61,12 @@ export async function generateMetadata(props: PageProps<'/docs/[[...slug]]'>): P
   return {
     title: page.data.title,
     description: page.data.description,
+    alternates: {
+      canonical: page.url,
+    },
     openGraph: {
       images: ogImage,
+      url: page.url,
     },
     twitter: {
       images: ogImage,

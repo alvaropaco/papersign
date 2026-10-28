@@ -1,6 +1,6 @@
 ---
 title: Organisation Limits
-description: View and set per-organisation document, email, and API limits on a self-hosted Documenso instance using the admin panel's subscription claims.
+description: View and set per-organisation document, email, and API limits on a self-hosted Papersign instance using the admin panel's subscription claims.
 ---
 
 import { Callout } from 'fumadocs-ui/components/callout';
@@ -17,7 +17,7 @@ There are three distinct kinds of limit:
 
 ## Prerequisites
 
-- A running self-hosted Documenso instance.
+- A running self-hosted Papersign instance.
 - An account with the **`ADMIN`** role — an account-level role, separate from organisation and team roles. New accounts are created with the `USER` role only. Grant the first admin by adding `ADMIN` to that user's `roles` directly in the database; after that, an existing admin can grant the role to others under **Admin Panel > Users > _(user)_ > Roles > Update user**.
 
 Open the admin panel at `/admin`. The sidebar sections used below are **Claims**, **Organisations**, and **Organisation Stats**.
@@ -64,7 +64,7 @@ The **Limits** section has a column for **Documents**, **Emails**, and **API**, 
 
 ### Feature flags
 
-The **Feature Flags** section toggles capabilities such as Unlimited documents, Branding, Hide Documenso branding, Email domains, Embed authoring, Embed signing, White label for embed authoring/signing, 21 CFR, HIPAA, Authentication portal, Allow Legacy Envelopes, Signing reminders, QES signing, and Disable emails.
+The **Feature Flags** section toggles capabilities such as Unlimited documents, Branding, Hide Papersign branding, Email domains, Embed authoring, Embed signing, White label for embed authoring/signing, 21 CFR, HIPAA, Authentication portal, Allow Legacy Envelopes, Signing reminders, QES signing, and Disable emails.
 
 Some flags are Enterprise features. If your license does not include one, it is marked and cannot be enabled (you can still turn it off). See [Enterprise Edition](/docs/policies/enterprise-edition).
 
@@ -91,7 +91,7 @@ Monthly quota usage is keyed to the **UTC calendar month**. There is no schedule
 
 ## Limitations
 
-The **global HTTP rate limit is not configurable.** Documenso enforces a hardcoded **1000 requests per minute per IP address** on its API endpoint groups (`/api/v1`, `/api/v2`, and the tRPC API are limited separately), returning `429 Too Many Requests`. It is a per-IP safeguard applied at the HTTP layer — not per-organisation, not stored on any claim, and not adjustable from the admin panel. See [Rate Limits](/docs/developers/api/rate-limits).
+The **global HTTP rate limit is not configurable.** Papersign enforces a hardcoded **1000 requests per minute per IP address** on its API endpoint groups (`/api/v1`, `/api/v2`, and the tRPC API are limited separately), returning `429 Too Many Requests`. It is a per-IP safeguard applied at the HTTP layer — not per-organisation, not stored on any claim, and not adjustable from the admin panel. See [Rate Limits](/docs/developers/api/rate-limits).
 
 ## Troubleshooting
 

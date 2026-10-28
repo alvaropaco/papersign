@@ -609,7 +609,7 @@ export const EmbedSignDocumentV1ClientPage = ({
             <span>
               <Trans>Powered by</Trans>
             </span>
-            <BrandingLogo className="ml-2 inline-block h-[14px]" />
+            <BrandingLogo className="ml-2 inline-block h-[14px]" variant="monochrome" />
           </div>
         )}
       </div>

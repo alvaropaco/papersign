@@ -1,6 +1,6 @@
 ---
 title: API Versioning
-description: Versioning information for the Documenso public API.
+description: Versioning information for the Papersign public API.
 ---
 
 import { Callout } from 'fumadocs-ui/components/callout';
@@ -9,11 +9,11 @@ import { Callout } from 'fumadocs-ui/components/callout';
 
 ## Overview
 
-Documenso uses API versioning to manage changes to the public API. This allows us to introduce new features, fix bugs, and make other changes without breaking existing integrations.
+Papersign uses API versioning to manage changes to the public API. This allows us to introduce new features, fix bugs, and make other changes without breaking existing integrations.
 
 <Callout type="info">The current version of the API is `v2`.</Callout>
 
-The API version is specified in the URL. For example, the base URL for the `v2` API is `https://app.documenso.com/api/v2`.
+The API version is specified in the URL. For example, the base URL for the `v2` API is `https://app.papersign.io/api/v2`.
 
 We may make changes to the API without incrementing the version number. We will always try to avoid breaking changes, but in some cases, it may be necessary to make changes that are not backward compatible. In these cases, we will increment the version number and provide information about the changes in the release notes.
 
@@ -23,7 +23,7 @@ Also, we may deprecate certain features or endpoints in the API. When we depreca
 
 ## Documents, Templates, and Envelopes
 
-Documenso has unified documents and templates into a single resource called an **envelope**. New integrations should create documents and templates through the `/envelope/*` endpoints. The `POST /document/create` and `POST /template/create` endpoints (including their `/beta` variants) are deprecated in favor of `POST /envelope/create`.
+Papersign has unified documents and templates into a single resource called an **envelope**. New integrations should create documents and templates through the `/envelope/*` endpoints. The `POST /document/create` and `POST /template/create` endpoints (including their `/beta` variants) are deprecated in favor of `POST /envelope/create`.
 
 See [Migrating to the Envelope API](/docs/developers/api/migrate-to-envelopes) for the rationale and step-by-step migration examples.
 

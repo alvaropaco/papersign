@@ -76,7 +76,7 @@ export const templateRouter = router({
         path: '/template',
         summary: 'Find templates',
         description:
-          'Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.documenso.com/docs/developers/api/migrate-to-envelopes for the migration guide. Find templates based on a search criteria',
+          'Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.papersign.io/docs/developers/api/migrate-to-envelopes for the migration guide. Find templates based on a search criteria',
         tags: ['Template'],
         deprecated: true,
       },
@@ -162,7 +162,7 @@ export const templateRouter = router({
         path: '/template/{templateId}',
         summary: 'Get template',
         description:
-          'Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.documenso.com/docs/developers/api/migrate-to-envelopes for the migration guide.',
+          'Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.papersign.io/docs/developers/api/migrate-to-envelopes for the migration guide.',
         tags: ['Template'],
         deprecated: true,
       },
@@ -209,7 +209,7 @@ export const templateRouter = router({
         contentTypes: ['multipart/form-data'],
         summary: 'Create template',
         description:
-          'Create a new template. Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.documenso.com/docs/developers/api/migrate-to-envelopes for the migration guide.',
+          'Create a new template. Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.papersign.io/docs/developers/api/migrate-to-envelopes for the migration guide.',
         tags: ['Template'],
         deprecated: true,
       },
@@ -299,7 +299,7 @@ export const templateRouter = router({
         path: '/template/create/beta',
         summary: 'Create template',
         description:
-          'Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.documenso.com/docs/developers/api/migrate-to-envelopes for the migration guide. You will need to upload the PDF to the provided URL returned. Note: Once V2 API is released, this will be removed since we will allow direct uploads, instead of using an upload URL.',
+          'Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.papersign.io/docs/developers/api/migrate-to-envelopes for the migration guide. You will need to upload the PDF to the provided URL returned. Note: Once V2 API is released, this will be removed since we will allow direct uploads, instead of using an upload URL.',
         tags: ['Template'],
         deprecated: true,
       },
@@ -385,7 +385,7 @@ export const templateRouter = router({
         path: '/template/update',
         summary: 'Update template',
         description:
-          'Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.documenso.com/docs/developers/api/migrate-to-envelopes for the migration guide.',
+          'Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.papersign.io/docs/developers/api/migrate-to-envelopes for the migration guide.',
         tags: ['Template'],
         deprecated: true,
       },
@@ -431,7 +431,7 @@ export const templateRouter = router({
         path: '/template/duplicate',
         summary: 'Duplicate template',
         description:
-          'Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.documenso.com/docs/developers/api/migrate-to-envelopes for the migration guide.',
+          'Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.papersign.io/docs/developers/api/migrate-to-envelopes for the migration guide.',
         tags: ['Template'],
         deprecated: true,
       },
@@ -470,7 +470,7 @@ export const templateRouter = router({
         path: '/template/delete',
         summary: 'Delete template',
         description:
-          'Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.documenso.com/docs/developers/api/migrate-to-envelopes for the migration guide.',
+          'Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.papersign.io/docs/developers/api/migrate-to-envelopes for the migration guide.',
         tags: ['Template'],
         deprecated: true,
       },
@@ -510,7 +510,7 @@ export const templateRouter = router({
         path: '/template/use',
         summary: 'Use template',
         description:
-          'Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.documenso.com/docs/developers/api/migrate-to-envelopes for the migration guide. Use the template to create a document',
+          'Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.papersign.io/docs/developers/api/migrate-to-envelopes for the migration guide. Use the template to create a document',
         tags: ['Template'],
         deprecated: true,
       },
@@ -667,7 +667,7 @@ export const templateRouter = router({
         path: '/template/direct/create',
         summary: 'Create direct link',
         description:
-          'Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.documenso.com/docs/developers/api/migrate-to-envelopes for the migration guide. Create a direct link for a template',
+          'Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.papersign.io/docs/developers/api/migrate-to-envelopes for the migration guide. Create a direct link for a template',
         tags: ['Template'],
         deprecated: true,
       },
@@ -744,7 +744,7 @@ export const templateRouter = router({
         path: '/template/direct/delete',
         summary: 'Delete direct link',
         description:
-          'Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.documenso.com/docs/developers/api/migrate-to-envelopes for the migration guide. Delete a direct link for a template',
+          'Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.papersign.io/docs/developers/api/migrate-to-envelopes for the migration guide. Delete a direct link for a template',
         tags: ['Template'],
         deprecated: true,
       },
@@ -778,7 +778,7 @@ export const templateRouter = router({
         path: '/template/direct/toggle',
         summary: 'Toggle direct link',
         description:
-          'Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.documenso.com/docs/developers/api/migrate-to-envelopes for the migration guide. Enable or disable a direct link for a template',
+          'Deprecated: this endpoint is being replaced by the Envelope API. See https://docs.papersign.io/docs/developers/api/migrate-to-envelopes for the migration guide. Enable or disable a direct link for a template',
         tags: ['Template'],
         deprecated: true,
       },

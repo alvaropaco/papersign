@@ -1,6 +1,6 @@
 # Security Policy
 
-We take the security of Documenso seriously. As a platform trusted with legally binding documents, the safety of the project and the people who rely on it is a priority for us. We're grateful to the security researchers who help keep it that way. If you've found an issue, we'd genuinely like to hear about it.
+We take the security of Papersign seriously. As a platform trusted with legally binding documents, the safety of the project and the people who rely on it is a priority for us. We're grateful to the security researchers who help keep it that way. If you've found an issue, we'd genuinely like to hear about it.
 
 ## Reporting a Vulnerability
 
@@ -8,8 +8,8 @@ Report security vulnerabilities privately. Do not open a public issue, discussio
 
 We accept reports through two channels, in order of preference:
 
-1. **GitHub Security Advisories (preferred)**. Use the [private vulnerability reporting form](https://github.com/documenso/documenso/security/advisories/new). This is our primary channel and lets us triage and work with you on a fix.
-2. **Email**. If you cannot use GitHub Security Advisories, email [security@documenso.com](mailto:security@documenso.com).
+1. **GitHub Security Advisories (preferred)**. Use the [private vulnerability reporting form](https://github.com/alvaropaco/papersign/security/advisories/new). This is our primary channel and lets us triage and work with you on a fix.
+2. **Email**. If you cannot use GitHub Security Advisories, email [security@papersign.io](mailto:security@papersign.io).
 
 Include the affected version, a clear description, steps to reproduce, and the potential impact.
 
@@ -21,7 +21,7 @@ We also run [Codex](https://openai.com/codex/) security analysis across the code
 
 ## Scope
 
-This policy covers vulnerabilities in the Documenso application code in this repository.
+This policy covers vulnerabilities in the Papersign application code in this repository.
 
 The items below are out of scope and will not be accepted. They are deployment, infrastructure, and configuration concerns that belong with the operator's firewall, network, and environment setup, not the application:
 
@@ -35,4 +35,4 @@ If you're unsure whether something is in scope, report it privately anyway and w
 
 ## Supported Versions
 
-Security fixes are applied to the latest release. Run the most recent version of Documenso.
+Security fixes are applied to the latest release. Run the most recent version of Papersign.

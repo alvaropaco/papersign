@@ -1,14 +1,14 @@
 # Report security vulnerabilities privately via GitHub Security Advisories (preferred).
-Contact: https://github.com/documenso/documenso/security/advisories/new
+Contact: https://github.com/alvaropaco/papersign/security/advisories/new
 
 # Alternatively, report critical issues privately by email.
-Contact: mailto:security@documenso.com
+Contact: mailto:security@papersign.io
 
 # Security policy
-Policy: https://github.com/documenso/documenso/security/policy
+Policy: https://github.com/alvaropaco/papersign/security/policy
 
 # General (non-security) issues
-Contact: https://github.com/documenso/documenso/issues/new?assignees=&labels=bug&projects=&template=bug-report.yml
+Contact: https://github.com/alvaropaco/papersign/issues/new?assignees=&labels=bug&projects=&template=bug-report.yml
 
 Preferred-Languages: en
-Canonical: https://documenso.com/.well-known/security.txt
+Canonical: https://papersign.io/.well-known/security.txt

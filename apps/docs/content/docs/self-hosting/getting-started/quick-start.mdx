@@ -1,6 +1,6 @@
 ---
 title: Quick Start
-description: Get Documenso running locally in minutes with Docker Compose.
+description: Get Papersign running locally in minutes with Docker Compose.
 ---
 
 import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
@@ -40,7 +40,7 @@ docker compose version
 ### Clone the repository
 
 ```bash
-git clone https://github.com/documenso/documenso.git
+git clone https://github.com/alvaropaco/papersign.git
 cd documenso
 ```
 
@@ -60,7 +60,7 @@ The default values work for local development. No changes are required.
 </Step>
 
 <Step>
-### Start Documenso
+### Start Papersign
 
 ```bash
 docker compose -f docker/development/compose.yml up -d
@@ -134,7 +134,7 @@ The quick start setup runs the following containers:
 
 Documents are stored in PostgreSQL by default. To use external S3-compatible storage, see [Storage Configuration](/docs/self-hosting/configuration/storage).
 
-The local email server is [Inbucket](https://www.inbucket.org/). Open its web UI at [http://localhost:9000](http://localhost:9000) to view emails Documenso sends during development. For your own deployment you can use any SMTP-compatible mailserver, such as Inbucket, [Mailpit](https://github.com/axllent/mailpit), or [Mailhog](https://github.com/mailhog/MailHog).
+The local email server is [Inbucket](https://www.inbucket.org/). Open its web UI at [http://localhost:9000](http://localhost:9000) to view emails Papersign sends during development. For your own deployment you can use any SMTP-compatible mailserver, such as Inbucket, [Mailpit](https://github.com/axllent/mailpit), or [Mailhog](https://github.com/mailhog/MailHog).
 
 ## Useful Commands
 
