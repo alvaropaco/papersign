@@ -52,10 +52,9 @@ The chart intentionally does not own these out-of-repo credentials. Run these on
 ```bash
 kubectl create namespace papersign
 
-kubectl --namespace documenso get secret infisical-universal-auth-credentials \
-  --output yaml |
-  sed 's/namespace: documenso/namespace: papersign/' |
-  kubectl apply --filename -
+kubectl --namespace papersign create secret generic infisical-universal-auth-credentials \
+  --from-literal=clientId='<PAPERSIGN_MACHINE_IDENTITY_CLIENT_ID>' \
+  --from-literal=clientSecret='<PAPERSIGN_MACHINE_IDENTITY_CLIENT_SECRET>'
 
 kubectl --namespace laweragent get secret ghcr-pull \
   --output yaml |
@@ -63,7 +62,7 @@ kubectl --namespace laweragent get secret ghcr-pull \
   kubectl apply --filename -
 ```
 
-Grant the Infisical machine identity used by that credential access to the Papersign Infisical project.
+Do not commit the identity credentials. The dedicated Papersign machine identity must have read access to project `3e29d88f-0254-472b-a399-036630e60ff1`, environment `prod`, path `/papersign`.
 
 ## DNS and email
 
@@ -73,7 +72,7 @@ Create in Cloudflare:
 app.papersign.io A 157.173.121.7 proxied
 ```
 
-Create the `papersign.io` domain in Mailcow and the `noreply@papersign.io` mailbox. Configure the Mailcow-provided SPF, DKIM, and DMARC records. Papersign SMTP uses:
+The Mailcow domain `papersign.io` and mailbox `noreply@papersign.io` are configured. Apply the Cloudflare SPF, DKIM, and DMARC values documented in k8s-infra `dns/papersign.io.md`. Papersign SMTP uses:
 
 ```text
 host: mail.0xcloud.net
