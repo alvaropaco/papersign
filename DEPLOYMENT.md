@@ -4,20 +4,24 @@ Papersign deploys to the k3s VPS through [`alvaropaco/k8s-infra`](https://github
 
 ## Public URL
 
-`https://papersign.io` is Cloudflare-proxied to VPS `157.173.121.7`. The origin uses a self-signed certificate managed by the chart. Before DNS is available, use:
+The app canonical URL is `https://papersign.io`. Documentation is served from `https://docs.papersign.io`. Cloudflare is expected to proxy both to VPS `157.173.121.7`; the origin uses self-signed certificates managed by the chart. Before DNS records are added, use:
 
 ```text
 https://papersign.io.157.173.121.7.nip.io
+https://docs.papersign.io.157.173.121.7.nip.io
 ```
+
+`www.papersign.io`, `app.papersign.io`, and `sign.0xcosing.com` redirect permanently to `https://papersign.io`.
 
 ## CI image flow
 
 A push to `main` runs `.github/workflows/deploy.yml`:
 
 1. Builds `docker/Dockerfile` for `linux/amd64`.
-2. Publishes `ghcr.io/alvaropaco/papersign:<full-sha>`, `sha-<short-sha>`, and `latest`.
-3. Updates `image.tag` in k8s-infra to the full SHA.
-4. ArgoCD syncs the updated chart.
+2. Builds `docker/Dockerfile.docs` for the standalone documentation app.
+3. Publishes `ghcr.io/alvaropaco/papersign:<full-sha>` and `ghcr.io/alvaropaco/papersign-docs:<full-sha>`, each with a short SHA tag and `latest`.
+4. Updates both image tags in k8s-infra to the full SHA.
+5. ArgoCD syncs the updated chart.
 
 The cross-repository update requires the Papersign repository secret `K8S_INFRA_PAT` with Contents write access to `alvaropaco/k8s-infra`. If it is absent, image publishing still succeeds but the automatic bump is skipped.
 
@@ -69,7 +73,10 @@ Do not commit the identity credentials. The dedicated Papersign machine identity
 Create in Cloudflare:
 
 ```text
-papersign.io A 157.173.121.7 proxied
+papersign.io      A 157.173.121.7 proxied
+www.papersign.io  A 157.173.121.7 proxied
+app.papersign.io  A 157.173.121.7 proxied
+docs.papersign.io A 157.173.121.7 proxied
 ```
 
 The Mailcow domain `papersign.io` and mailbox `noreply@papersign.io` are configured. Apply the Cloudflare SPF, DKIM, and DMARC values documented in k8s-infra `dns/papersign.io.md`. Papersign SMTP uses:
@@ -90,7 +97,7 @@ from: Papersign <noreply@papersign.io>
 4. Wait for ArgoCD to sync, then inspect the application and pod.
 5. After Papersign is healthy, remove the old `documenso` ArgoCD app and chart in a separate k8s-infra commit.
 
-The initial deployment completed on 2026-10-28 and the old Documenso app/chart were removed. Its namespace and Postgres PVC remain as a recovery snapshot.
+The initial deployment completed on 2026-10-28 and the old Documenso app/chart were removed. Its namespace and Postgres PVC remain as a recovery snapshot. The complete app + docs rollout on the canonical apex completed on 2026-10-29.
 
 ## Verification and rollback
 
@@ -98,6 +105,7 @@ The initial deployment completed on 2026-10-28 and the old Documenso app/chart w
 kubectl --namespace argocd get application papersign
 kubectl --namespace papersign get pods
 curl --insecure https://papersign.io/api/health
+curl --insecure https://docs.papersign.io/api/health
 ```
 
-To roll back an image, revert `image.tag` in `apps/papersign/values.yaml` to the previous full SHA. To roll back chart changes, revert the k8s-infra commit.
+To roll back images, revert `image.tag` and/or `docs.image.tag` in `apps/papersign/values.yaml` to the previous full SHA. To roll back chart changes, revert the k8s-infra commit.
