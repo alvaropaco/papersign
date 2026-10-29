@@ -8,52 +8,27 @@ RUN apk add --no-cache font-freefont
 
 
 ###########################
-#    BUILDER CONTAINER    #
+#     BUILD CONTAINER     #
 ###########################
 FROM base AS builder
 
-RUN apk add --no-cache libc6-compat
-RUN apk add --no-cache jq
+# Native dependencies from the full workspace still need a toolchain even when
+# we only build @documenso/docs.
+RUN apk add --no-cache libc6-compat jq make cmake g++ bash
 WORKDIR /app
 
 COPY . .
 
-RUN TURBO_VERSION="$(jq -r '.packages["node_modules/turbo"].version' package-lock.json)" \
-    && npm install -g "turbo@${TURBO_VERSION}"
-
-# Outputs to the /out folder
-RUN turbo prune --scope=@documenso/docs --docker
-
-
-###########################
-#   INSTALLER CONTAINER   #
-###########################
-FROM base AS installer
-
-RUN apk add --no-cache libc6-compat
-RUN apk add --no-cache jq
-
-WORKDIR /app
-
 ENV HUSKY=0
-ENV DOCKER_OUTPUT=1
 ENV NEXT_TELEMETRY_DISABLED=1
-
-COPY .gitignore .gitignore
-COPY --from=builder /app/out/json/ .
-COPY --from=builder /app/out/package-lock.json ./package-lock.json
-
-COPY --from=builder /app/lingui.config.ts ./lingui.config.ts
-COPY --from=builder /app/patches ./patches
-
-RUN npm ci
-
-COPY --from=builder /app/out/full/ .
-COPY turbo.json turbo.json
-
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 
-RUN npx turbo run build --filter=@documenso/docs...
+# A full-workspace install keeps the workspace-root Tailwind v3 compatibility
+# package required by Fumadocs' typography plugin. Turbo prune drops that root
+# dependency because @documenso/docs does not depend on the shared Tailwind
+# workspace package directly.
+RUN npm ci --no-audit --no-fund
+RUN npm run build --workspace=@documenso/docs
 
 
 ###########################
@@ -75,9 +50,9 @@ USER nodejs
 WORKDIR /app
 
 # Next standalone output preserves the monorepo path: /app/apps/docs/server.js.
-COPY --from=installer --chown=nodejs:nodejs /app/apps/docs/.next/standalone ./
-COPY --from=installer --chown=nodejs:nodejs /app/apps/docs/.next/static ./apps/docs/.next/static
-COPY --from=installer --chown=nodejs:nodejs /app/apps/docs/public ./apps/docs/public
+COPY --from=builder --chown=nodejs:nodejs /app/apps/docs/.next/standalone ./
+COPY --from=builder --chown=nodejs:nodejs /app/apps/docs/.next/static ./apps/docs/.next/static
+COPY --from=builder --chown=nodejs:nodejs /app/apps/docs/public ./apps/docs/public
 
 WORKDIR /app/apps/docs
 
