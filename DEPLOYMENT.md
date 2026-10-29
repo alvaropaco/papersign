@@ -90,6 +90,8 @@ from: Papersign <noreply@papersign.io>
 4. Wait for ArgoCD to sync, then inspect the application and pod.
 5. After Papersign is healthy, remove the old `documenso` ArgoCD app and chart in a separate k8s-infra commit.
 
+The initial deployment completed on 2026-10-28 and the old Documenso app/chart were removed. Its namespace and Postgres PVC remain as a recovery snapshot.
+
 ## Verification and rollback
 
 ```bash
