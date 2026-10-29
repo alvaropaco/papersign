@@ -10,7 +10,7 @@ const DEMO_BRANDS = [
   {
     name: 'Papersign',
     letter: 'P',
-    domain: 'noreply@app.papersign.io',
+    domain: 'noreply@papersign.io',
     accent: '#0056FE',
     ink: '#ffffff',
     tint: '#EAF1FF',
@@ -19,7 +19,7 @@ const DEMO_BRANDS = [
   {
     name: 'Papersign',
     letter: 'P',
-    domain: 'noreply@app.papersign.io',
+    domain: 'noreply@papersign.io',
     accent: '#387BC7',
     ink: '#ffffff',
     tint: '#EDF3FA',
@@ -28,7 +28,7 @@ const DEMO_BRANDS = [
   {
     name: 'Papersign',
     letter: 'P',
-    domain: 'noreply@app.papersign.io',
+    domain: 'noreply@papersign.io',
     accent: '#9747F5',
     ink: '#ffffff',
     tint: '#F4EDFE',

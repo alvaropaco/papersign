@@ -10794,7 +10794,7 @@ msgid "Sender reported"
 msgstr "送信者を報告しました"
 
 #: apps/remix/app/components/general/settings-upsell/email-domains-upsell.tsx
-msgid "Sending from app.papersign.io"
+msgid "Sending from papersign.io"
 msgstr ""
 
 #: apps/remix/app/components/general/settings-upsell/email-domains-upsell.tsx

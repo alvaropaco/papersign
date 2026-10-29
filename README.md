@@ -2,7 +2,7 @@
 
 Papersign is an open-source application for preparing, sending, and signing documents online.
 
-[Website](https://papersign.io) · [App](https://app.papersign.io) · [Documentation](https://docs.papersign.io) · [Support](mailto:support@papersign.io)
+[Website](https://papersign.io) · [App](https://papersign.io) · [Documentation](https://docs.papersign.io) · [Support](mailto:support@papersign.io)
 
 Source code: [https://github.com/alvaropaco/papersign](https://github.com/alvaropaco/papersign)
 

@@ -237,7 +237,7 @@ export default function HomePage() {
             GitHub
           </a>
           <a
-            href="https://app.papersign.io/signup"
+            href="https://papersign.io/signup"
             className="inline-flex items-center gap-2 rounded-lg bg-papersign px-4 py-2 font-medium text-fd-primary-foreground text-sm transition-colors hover:bg-papersign/90"
           >
             Try Papersign

@@ -4,10 +4,10 @@ Papersign deploys to the k3s VPS through [`alvaropaco/k8s-infra`](https://github
 
 ## Public URL
 
-`https://app.papersign.io` is Cloudflare-proxied to VPS `157.173.121.7`. The origin uses a self-signed certificate managed by the chart. Before DNS is available, use:
+`https://papersign.io` is Cloudflare-proxied to VPS `157.173.121.7`. The origin uses a self-signed certificate managed by the chart. Before DNS is available, use:
 
 ```text
-https://app.papersign.io.157.173.121.7.nip.io
+https://papersign.io.157.173.121.7.nip.io
 ```
 
 ## CI image flow
@@ -69,7 +69,7 @@ Do not commit the identity credentials. The dedicated Papersign machine identity
 Create in Cloudflare:
 
 ```text
-app.papersign.io A 157.173.121.7 proxied
+papersign.io A 157.173.121.7 proxied
 ```
 
 The Mailcow domain `papersign.io` and mailbox `noreply@papersign.io` are configured. Apply the Cloudflare SPF, DKIM, and DMARC values documented in k8s-infra `dns/papersign.io.md`. Papersign SMTP uses:
@@ -97,7 +97,7 @@ The initial deployment completed on 2026-10-28 and the old Documenso app/chart w
 ```bash
 kubectl --namespace argocd get application papersign
 kubectl --namespace papersign get pods
-curl --insecure https://app.papersign.io/api/health
+curl --insecure https://papersign.io/api/health
 ```
 
 To roll back an image, revert `image.tag` in `apps/papersign/values.yaml` to the previous full SHA. To roll back chart changes, revert the k8s-infra commit.

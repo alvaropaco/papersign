@@ -18,12 +18,14 @@ permissions:
 
 jobs:
   publish:
-    name: Build and publish image
+    name: Build and publish images
     runs-on: ubuntu-latest
     timeout-minutes: 60
     outputs:
-      image: ${{ steps.meta.outputs.image }}
-      tag: ${{ steps.meta.outputs.tag }}
+      app_image: ${{ steps.app-metadata.outputs.image }}
+      app_tag: ${{ steps.app-metadata.outputs.tag }}
+      docs_image: ${{ steps.docs-metadata.outputs.image }}
+      docs_tag: ${{ steps.docs-metadata.outputs.tag }}
     steps:
       - uses: actions/checkout@v4
 
@@ -44,18 +46,20 @@ jobs:
             exit 0
           fi
 
-          current_tag="$(
-            curl --fail --silent --show-error \
-              https://raw.githubusercontent.com/alvaropaco/k8s-infra/master/apps/papersign/values.yaml \
-              | awk '/^  tag:/ { gsub(/[[:space:]"]/, "", $2); print $2; exit }'
-          )"
+          values="$(curl --fail --silent --show-error \
+            https://raw.githubusercontent.com/alvaropaco/k8s-infra/master/apps/papersign/values.yaml)"
 
-          echo "gitops_tag=${current_tag:-unknown}"
-          if [ "$current_tag" = "$GIT_SHA" ]; then
-            echo 'GitOps image tag is already current; skipping scheduled build.'
+          current_app_tag="$(printf '%s' "$values" | awk '/^  tag:/ { gsub(/[[:space:]"]/, "", $2); print $2; exit }')"
+          current_docs_tag="$(printf '%s' "$values" | awk '/^    tag:/ { gsub(/[[:space:]"]/, "", $2); print $2; exit }')"
+
+          echo "gitops_app_tag=${current_app_tag:-unknown}"
+          echo "gitops_docs_tag=${current_docs_tag:-unknown}"
+
+          if [ "$current_app_tag" = "$GIT_SHA" ] && [ "$current_docs_tag" = "$GIT_SHA" ]; then
+            echo 'GitOps image tags are already current; skipping scheduled build.'
             echo 'deploy=false' >> "$GITHUB_OUTPUT"
           else
-            echo 'GitOps image tag differs; deploying scheduled build.'
+            echo 'GitOps image tags differ; deploying scheduled build.'
             echo 'deploy=true' >> "$GITHUB_OUTPUT"
           fi
 
@@ -71,9 +75,9 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ github.token }}
 
-      - name: Set image metadata
+      - name: Set application image metadata
         if: steps.gate.outputs.deploy != 'false'
-        id: meta
+        id: app-metadata
         env:
           GIT_SHA: ${{ github.sha }}
         run: |
@@ -90,28 +94,59 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
-      - name: Build and publish image
+      - name: Build and publish application image
         if: steps.gate.outputs.deploy != 'false'
         uses: docker/build-push-action@v6
         with:
           context: .
           file: ./docker/Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          tags: ${{ steps.app-metadata.outputs.tags }}
+          cache-from: type=gha,scope=papersign-app
+          cache-to: type=gha,scope=papersign-app,mode=max
           build-args: |
             NEXT_PRIVATE_TELEMETRY_KEY=${{ secrets.NEXT_PRIVATE_TELEMETRY_KEY }}
             NEXT_PRIVATE_TELEMETRY_HOST=${{ secrets.NEXT_PRIVATE_TELEMETRY_HOST }}
 
+      - name: Set docs image metadata
+        if: steps.gate.outputs.deploy != 'false'
+        id: docs-metadata
+        env:
+          GIT_SHA: ${{ github.sha }}
+        run: |
+          SHORT_SHA="${GIT_SHA::7}"
+          IMAGE="ghcr.io/${GITHUB_REPOSITORY_OWNER}/papersign-docs"
+
+          {
+            echo "image=${IMAGE}"
+            echo "tag=${GIT_SHA}"
+            echo "tags<<EOF"
+            echo "${IMAGE}:${GIT_SHA}"
+            echo "${IMAGE}:sha-${SHORT_SHA}"
+            echo "${IMAGE}:latest"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Build and publish docs image
+        if: steps.gate.outputs.deploy != 'false'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./docker/Dockerfile.docs
+          push: true
+          tags: ${{ steps.docs-metadata.outputs.tags }}
+          cache-from: type=gha,scope=papersign-docs
+          cache-to: type=gha,scope=papersign-docs,mode=max
+
   bump-gitops:
-    name: Update k8s-infra image tag
+    name: Update k8s-infra image tags
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: publish
     env:
       K8S_INFRA_PAT: ${{ secrets.K8S_INFRA_PAT }}
-      IMAGE_TAG: ${{ needs.publish.outputs.tag }}
+      APP_IMAGE_TAG: ${{ needs.publish.outputs.app_tag }}
+      DOCS_IMAGE_TAG: ${{ needs.publish.outputs.docs_tag }}
     steps:
       - name: Check deployment prerequisites
         run: |
@@ -120,12 +155,12 @@ jobs:
             exit 0
           fi
 
-          if [ -z "$IMAGE_TAG" ]; then
-            echo 'Image publish was skipped because the GitOps tag is already current.'
+          if [ -z "$APP_IMAGE_TAG" ] || [ -z "$DOCS_IMAGE_TAG" ]; then
+            echo 'Image publish was skipped because the GitOps tags are already current.'
             exit 0
           fi
 
-      - name: Update image tag
+      - name: Update image tags
         if: env.K8S_INFRA_PAT != ''
         run: |
           git clone --branch master --single-branch --depth 1 \
@@ -139,16 +174,17 @@ jobs:
             exit 0
           fi
 
-          # The application image tag is the only two-space-indented tag in values.yaml.
-          sed -i "s|^\\(  tag:\\).*$|\\1 \"${IMAGE_TAG}\"|" apps/papersign/values.yaml
+          # The application tag is two-space indented; the docs tag is four-space indented.
+          sed -i "s|^\\(  tag:\\).*$|\\1 \"${APP_IMAGE_TAG}\"|" apps/papersign/values.yaml
+          sed -i "s|^\\(    tag:\\).*$|\\1 \"${DOCS_IMAGE_TAG}\"|" apps/papersign/values.yaml
 
           if git diff --quiet -- apps/papersign/values.yaml; then
-            echo "Image tag is already ${IMAGE_TAG}."
+            echo "GitOps image tags are already ${APP_IMAGE_TAG}."
             exit 0
           fi
 
           git config user.name 'civ-bot'
           git config user.email 'ci@0xcloud.net'
           git add apps/papersign/values.yaml
-          git commit -m "papersign: bump image tag to ${IMAGE_TAG} [skip ci]"
+          git commit -m "papersign: bump image tags to $(printf '%s' "${APP_IMAGE_TAG}" | cut -c1-7) [skip ci]"
           git push origin HEAD:master

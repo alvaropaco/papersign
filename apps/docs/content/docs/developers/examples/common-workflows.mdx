@@ -31,7 +31,7 @@ The most common workflow: upload a PDF, add recipients with signature fields, an
 <Tab value="TypeScript">
 ```typescript
 const API_TOKEN = process.env.DOCUMENSO_API_TOKEN;
-const BASE_URL = 'https://app.papersign.io/api/v2';
+const BASE_URL = 'https://papersign.io/api/v2';
 
 type Recipient = {
   email: string;
@@ -165,7 +165,7 @@ result.recipients.forEach((r) => console.log(`${r.email}: ${r.signingUrl}`));
 set -e
 
 API_TOKEN="YOUR_API_TOKEN"
-BASE_URL="https://app.papersign.io/api/v2"
+BASE_URL="https://papersign.io/api/v2"
 PDF_FILE="./contract.pdf"
 
 # Step 1: Create envelope with recipients and fields
@@ -274,7 +274,7 @@ Use templates for repeatable document workflows. This example creates an employm
 <Tab value="TypeScript">
 ```typescript
 const API_TOKEN = process.env.DOCUMENSO_API_TOKEN;
-const BASE_URL = 'https://app.papersign.io/api/v2';
+const BASE_URL = 'https://papersign.io/api/v2';
 
 type EmployeeData = {
   email: string;
@@ -429,7 +429,7 @@ console.log('Signing URL:', result.signingUrl);
 set -e
 
 API_TOKEN="YOUR_API_TOKEN"
-BASE_URL="https://app.papersign.io/api/v2"
+BASE_URL="https://papersign.io/api/v2"
 TEMPLATE_ID=123
 
 # Variables
@@ -513,7 +513,7 @@ Send the same document to multiple recipients in parallel. Useful for policy ack
 <Tab value="TypeScript">
 ```typescript
 const API_TOKEN = process.env.DOCUMENSO_API_TOKEN;
-const BASE_URL = 'https://app.papersign.io/api/v2';
+const BASE_URL = 'https://papersign.io/api/v2';
 
 type BulkRecipient = {
   email: string;
@@ -636,7 +636,7 @@ results.failed.forEach((f) => console.error(`${f.email}: ${f.error}`));
 #!/bin/bash
 
 API_TOKEN="YOUR_API_TOKEN"
-BASE_URL="https://app.papersign.io/api/v2"
+BASE_URL="https://papersign.io/api/v2"
 TEMPLATE_ID=456
 
 # Get signer slot ID from template
@@ -893,7 +893,7 @@ The `version` query parameter accepts `original`, `pending`, or `signed`.
 <Tab value="TypeScript">
 ```typescript
 const API_TOKEN = process.env.DOCUMENSO_API_TOKEN;
-const BASE_URL = 'https://app.papersign.io/api/v2';
+const BASE_URL = 'https://papersign.io/api/v2';
 
 type DownloadVersion = 'original' | 'pending' | 'signed';
 
@@ -979,7 +979,7 @@ await downloadAllCompletedDocuments('./downloads');
 #!/bin/bash
 
 API_TOKEN="YOUR_API_TOKEN"
-BASE_URL="https://app.papersign.io/api/v2"
+BASE_URL="https://papersign.io/api/v2"
 ENVELOPE_ID="envelope_abc123"
 OUTPUT_DIR="./downloads"
 

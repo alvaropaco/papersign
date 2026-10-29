@@ -92,7 +92,7 @@ export const EmailDomainsUpsell = () => {
                 )}
 
                 <span className="truncate">
-                  {isBranded ? <Trans>Sending from your domain</Trans> : <Trans>Sending from app.papersign.io</Trans>}
+                  {isBranded ? <Trans>Sending from your domain</Trans> : <Trans>Sending from papersign.io</Trans>}
                 </span>
               </motion.div>
             </AnimatePresence>
@@ -174,7 +174,7 @@ export const EmailDomainsUpsell = () => {
                       transition={{ duration: 0.28, ease: EASE }}
                       className="truncate"
                     >
-                      {isBranded ? brandedSender.email : 'noreply@app.papersign.io'}
+                      {isBranded ? brandedSender.email : 'noreply@papersign.io'}
                     </motion.p>
                   </AnimatePresence>
                 </div>

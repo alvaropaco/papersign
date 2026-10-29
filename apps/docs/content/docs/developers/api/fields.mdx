@@ -96,14 +96,14 @@ GET /envelope/field/{fieldId}
 <Tabs items={['curl', 'TypeScript']}>
 <Tab value="curl">
 ```bash
-curl -X GET "https://app.papersign.io/api/v2/envelope/field/456" \
+curl -X GET "https://papersign.io/api/v2/envelope/field/456" \
   -H "Authorization: api_xxxxxxxxxxxxxxxx"
 ```
 </Tab>
 <Tab value="TypeScript">
 ```typescript
 const response = await fetch(
-  'https://app.papersign.io/api/v2/envelope/field/456',
+  'https://papersign.io/api/v2/envelope/field/456',
   {
     method: 'GET',
     headers: {
@@ -149,7 +149,7 @@ Each entry in `data` requires a `type`, a `recipientId`, and a position — eith
 <Tabs items={['curl', 'TypeScript']}>
 <Tab value="curl">
 ```bash
-curl -X POST "https://app.papersign.io/api/v2/envelope/field/create-many" \
+curl -X POST "https://papersign.io/api/v2/envelope/field/create-many" \
   -H "Authorization: api_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{
@@ -196,7 +196,7 @@ curl -X POST "https://app.papersign.io/api/v2/envelope/field/create-many" \
 <Tab value="TypeScript">
 ```typescript
 const response = await fetch(
-  'https://app.papersign.io/api/v2/envelope/field/create-many',
+  'https://papersign.io/api/v2/envelope/field/create-many',
   {
     method: 'POST',
     headers: {
@@ -346,7 +346,7 @@ Each entry in `data` requires the field `id` and `type`. Position properties (`p
 <Tabs items={['curl', 'TypeScript']}>
 <Tab value="curl">
 ```bash
-curl -X POST "https://app.papersign.io/api/v2/envelope/field/update-many" \
+curl -X POST "https://papersign.io/api/v2/envelope/field/update-many" \
   -H "Authorization: api_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{
@@ -369,7 +369,7 @@ curl -X POST "https://app.papersign.io/api/v2/envelope/field/update-many" \
 <Tab value="TypeScript">
 ```typescript
 const response = await fetch(
-  'https://app.papersign.io/api/v2/envelope/field/update-many',
+  'https://papersign.io/api/v2/envelope/field/update-many',
   {
     method: 'POST',
     headers: {
@@ -463,7 +463,7 @@ POST /envelope/field/delete
 <Tabs items={['curl', 'TypeScript']}>
 <Tab value="curl">
 ```bash
-curl -X POST "https://app.papersign.io/api/v2/envelope/field/delete" \
+curl -X POST "https://papersign.io/api/v2/envelope/field/delete" \
   -H "Authorization: api_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{
@@ -474,7 +474,7 @@ curl -X POST "https://app.papersign.io/api/v2/envelope/field/delete" \
 <Tab value="TypeScript">
 ```typescript
 const response = await fetch(
-  'https://app.papersign.io/api/v2/envelope/field/delete',
+  'https://papersign.io/api/v2/envelope/field/delete',
   {
     method: 'POST',
     headers: {
@@ -809,7 +809,7 @@ async function addSignatureBlock(envelopeId: string, recipientId: number) {
     },
   ];
 
-  const response = await fetch('https://app.papersign.io/api/v2/envelope/field/create-many', {
+  const response = await fetch('https://papersign.io/api/v2/envelope/field/create-many', {
     method: 'POST',
     headers: {
       Authorization: 'api_xxxxxxxxxxxxxxxx',

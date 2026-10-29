@@ -65,7 +65,7 @@ Each `customDocumentData` entry maps an uploaded file to a template item:
 <Tabs items={['curl', 'TypeScript']}>
 <Tab value="curl">
 ```bash
-curl -X POST "https://app.papersign.io/api/v2/envelope/use" \
+curl -X POST "https://papersign.io/api/v2/envelope/use" \
   -H "Authorization: api_xxxxxxxxxxxxxxxx" \
   -F 'payload={
     "envelopeId": "envelope_template123",
@@ -115,7 +115,7 @@ form.append(
   }),
 );
 
-const response = await fetch('https://app.papersign.io/api/v2/envelope/use', {
+const response = await fetch('https://papersign.io/api/v2/envelope/use', {
   method: 'POST',
   headers: {
     Authorization: 'api_xxxxxxxxxxxxxxxx',
@@ -142,7 +142,7 @@ console.log('Created document envelope:', document.id);
       "token": "recipient_token",
       "role": "SIGNER",
       "signingOrder": 1,
-      "signingUrl": "https://app.papersign.io/sign/recipient_token"
+      "signingUrl": "https://papersign.io/sign/recipient_token"
     }
   ]
 }
@@ -155,7 +155,7 @@ If you leave `distributeDocument` unset or set it to `false`, distribute the cre
 
 ```typescript
 const distributionResponse = await fetch(
-  'https://app.papersign.io/api/v2/envelope/distribute',
+  'https://papersign.io/api/v2/envelope/distribute',
   {
     method: 'POST',
     headers: {
@@ -184,7 +184,7 @@ console.log('Signing URL:', distribution.recipients[0].signingUrl);
       "token": "recipient_token",
       "role": "SIGNER",
       "signingOrder": 1,
-      "signingUrl": "https://app.papersign.io/sign/recipient_token"
+      "signingUrl": "https://papersign.io/sign/recipient_token"
     }
   ]
 }
@@ -303,12 +303,12 @@ GET /template
 <Tab value="curl">
 ```bash
 # List all templates
-curl -X GET "https://app.papersign.io/api/v2/template" \
+curl -X GET "https://papersign.io/api/v2/template" \
   -H "Authorization: api_xxxxxxxxxxxxxxxx"
 
 # Filter by type and paginate
 
-curl -X GET "https://app.papersign.io/api/v2/template?type=PRIVATE&page=1&perPage=20" \
+curl -X GET "https://papersign.io/api/v2/template?type=PRIVATE&page=1&perPage=20" \
  -H "Authorization: api_xxxxxxxxxxxxxxxx"
 
 ````
@@ -316,7 +316,7 @@ curl -X GET "https://app.papersign.io/api/v2/template?type=PRIVATE&page=1&perPag
 <Tab value="TypeScript">
 ```typescript
 const API_TOKEN = process.env.DOCUMENSO_API_TOKEN;
-const BASE_URL = 'https://app.papersign.io/api/v2';
+const BASE_URL = 'https://papersign.io/api/v2';
 
 // List all templates
 const response = await fetch(`${BASE_URL}/template`, {
@@ -396,7 +396,7 @@ GET /template/{templateId}
 <Tabs items={['curl', 'TypeScript']}>
 <Tab value="curl">
 ```bash
-curl -X GET "https://app.papersign.io/api/v2/template/123" \
+curl -X GET "https://papersign.io/api/v2/template/123" \
   -H "Authorization: api_xxxxxxxxxxxxxxxx"
 ```
 </Tab>
@@ -404,7 +404,7 @@ curl -X GET "https://app.papersign.io/api/v2/template/123" \
 ```typescript
 const templateId = 123;
 
-const response = await fetch(`https://app.papersign.io/api/v2/template/${templateId}`, {
+const response = await fetch(`https://papersign.io/api/v2/template/${templateId}`, {
   method: 'GET',
   headers: {
     Authorization: 'api_xxxxxxxxxxxxxxxx',
@@ -466,7 +466,7 @@ Each recipient object must include:
 <Tab value="curl">
 ```bash
 # Create document from template
-curl -X POST "https://app.papersign.io/api/v2/template/use" \
+curl -X POST "https://papersign.io/api/v2/template/use" \
   -H "Authorization: api_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{
@@ -488,7 +488,7 @@ curl -X POST "https://app.papersign.io/api/v2/template/use" \
   }'
 
 # Create document with field prefilling
-curl -X POST "https://app.papersign.io/api/v2/template/use" \
+curl -X POST "https://papersign.io/api/v2/template/use" \
   -H "Authorization: api_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{
@@ -525,7 +525,7 @@ curl -X POST "https://app.papersign.io/api/v2/template/use" \
 <Tab value="TypeScript">
 ```typescript
 const API_TOKEN = process.env.DOCUMENSO_API_TOKEN;
-const BASE_URL = 'https://app.papersign.io/api/v2';
+const BASE_URL = 'https://papersign.io/api/v2';
 
 // Create document from template
 const response = await fetch(`${BASE_URL}/template/use`, {
@@ -808,7 +808,7 @@ POST /template/update
 <Tabs items={['curl', 'TypeScript']}>
 <Tab value="curl">
 ```bash
-curl -X POST "https://app.papersign.io/api/v2/template/update" \
+curl -X POST "https://papersign.io/api/v2/template/update" \
   -H "Authorization: api_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{
@@ -874,7 +874,7 @@ POST /template/duplicate
 <Tabs items={['curl', 'TypeScript']}>
 <Tab value="curl">
 ```bash
-curl -X POST "https://app.papersign.io/api/v2/template/duplicate" \
+curl -X POST "https://papersign.io/api/v2/template/duplicate" \
   -H "Authorization: api_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{
@@ -926,7 +926,7 @@ POST /template/delete
 <Tabs items={['curl', 'TypeScript']}>
 <Tab value="curl">
 ```bash
-curl -X POST "https://app.papersign.io/api/v2/template/delete" \
+curl -X POST "https://papersign.io/api/v2/template/delete" \
   -H "Authorization: api_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{
@@ -982,7 +982,7 @@ POST /template/direct/create
 <Tabs items={['curl', 'TypeScript']}>
 <Tab value="curl">
 ```bash
-curl -X POST "https://app.papersign.io/api/v2/template/direct/create" \
+curl -X POST "https://papersign.io/api/v2/template/direct/create" \
   -H "Authorization: api_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{
@@ -1007,7 +1007,7 @@ const response = await fetch(`${BASE_URL}/template/direct/create`, {
 
 const directLink = await response.json();
 console.log('Direct link token:', directLink.token);
-// Share: https://app.papersign.io/d/{token}
+// Share: https://papersign.io/d/{token}
 
 ````
 </Tab>
@@ -1037,7 +1037,7 @@ POST /template/direct/toggle
 <Tabs items={['curl', 'TypeScript']}>
 <Tab value="curl">
 ```bash
-curl -X POST "https://app.papersign.io/api/v2/template/direct/toggle" \
+curl -X POST "https://papersign.io/api/v2/template/direct/toggle" \
   -H "Authorization: api_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{
@@ -1078,7 +1078,7 @@ POST /template/direct/delete
 <Tabs items={['curl', 'TypeScript']}>
 <Tab value="curl">
 ```bash
-curl -X POST "https://app.papersign.io/api/v2/template/direct/delete" \
+curl -X POST "https://papersign.io/api/v2/template/direct/delete" \
   -H "Authorization: api_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{
@@ -1138,7 +1138,7 @@ This example demonstrates a complete workflow for using templates to send contra
 
 ```typescript
 const API_TOKEN = process.env.DOCUMENSO_API_TOKEN;
-const BASE_URL = 'https://app.papersign.io/api/v2';
+const BASE_URL = 'https://papersign.io/api/v2';
 
 async function sendEmploymentContract(employeeData: {
   email: string;
