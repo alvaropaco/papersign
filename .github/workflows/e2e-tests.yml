@@ -12,8 +12,9 @@ concurrency:
 jobs:
   e2e_tests:
     name: 'E2E Tests'
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     timeout-minutes: 60
-    runs-on: warp-ubuntu-2204-x64-8x
+    runs-on: [self-hosted, linux, x64, ci]
     steps:
       - uses: actions/checkout@v4
 
@@ -34,7 +35,7 @@ jobs:
         run: npm run prisma:seed
 
       - name: Install playwright browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install
 
       - name: Run Playwright tests
         run: npm run ci

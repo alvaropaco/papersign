@@ -4,5 +4,5 @@ runs:
   using: 'composite'
   steps:
     - name: Install playwright
-      run: npx playwright install --with-deps
+      run: npx playwright install
       shell: bash
