@@ -1,8 +1,0 @@
-name: Pool Probe
-on:
-  workflow_dispatch:
-jobs:
-  probe:
-    runs-on: [self-hosted, linux, x64, ci]
-    steps:
-      - run: echo "papersign pool OK on 0xcloud"
