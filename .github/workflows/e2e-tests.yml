@@ -26,6 +26,15 @@ jobs:
       - name: Start Services
         run: npm run dx:up
 
+      - name: Point env at DinD service hosts
+        # On hosted runners, docker = localhost. Here `docker` talks to the
+        # job's private DinD sidecar, whose published ports answer on the
+        # sidecar address, not 127.0.0.1 (see docs/OPERATIONS.md).
+        run: |
+          h=${DOCKER_HOST#tcp://}; h=${h%%:*}
+          sed -i -E "s@(127\.0\.0\.1|localhost):(54320|63790|9000|2500|1100)@${h}:\2@g" .env
+          grep -E "DATABASE_URL|REDIS_URL" .env
+
       - uses: ./.github/actions/playwright-install
 
       - name: Create the database
