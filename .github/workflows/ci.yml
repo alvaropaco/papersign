@@ -14,6 +14,11 @@ concurrency:
 jobs:
   build_app:
     name: Build App
+
+    # hosted runners have 16g RAM; V8 default heap in a 10g
+    # container is 5g and tsc dies (134). Match hosted's effective 8g.
+    env:
+      NODE_OPTIONS: --max-old-space-size=8192
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: [self-hosted, linux, x64, ci]
     timeout-minutes: 60

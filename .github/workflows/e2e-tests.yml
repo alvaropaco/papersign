@@ -12,6 +12,11 @@ concurrency:
 jobs:
   e2e_tests:
     name: 'E2E Tests'
+
+    # hosted runners have 16g RAM; V8 default heap in a 10g
+    # container is 5g and tsc dies (134). Match hosted's effective 8g.
+    env:
+      NODE_OPTIONS: --max-old-space-size=8192
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     timeout-minutes: 60
     runs-on: [self-hosted, linux, x64, ci]
