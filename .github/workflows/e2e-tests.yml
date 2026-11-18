@@ -12,8 +12,6 @@ concurrency:
 jobs:
   e2e_tests:
     name: 'E2E Tests'
-    env:
-      NODE_OPTIONS: "--max-old-space-size=8192"
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     timeout-minutes: 60
     runs-on: [self-hosted, linux, x64, ci]
@@ -62,5 +60,8 @@ jobs:
           path: 'packages/app-tests/**/test-results/*'
           retention-days: 7
     env:
+      # hosted runners: 16g RAM -> ~8g default V8 heap; replicate here (job
+      # container is 10g; without this tsc dies exit 134).
+      NODE_OPTIONS: "--max-old-space-size=8192"
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
